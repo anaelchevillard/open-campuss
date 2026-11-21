@@ -1,0 +1,8 @@
+/* Administration : ligne modifiée qui s'estompe, panneau de fiche, barre d'actions groupées */
+@keyframes row-flash { from { background-color: color-mix(in oklab, var(--primary) 8%, transparent); } }
+.admin-row-flash { animation: row-flash 1.2s var(--ease-out); }
+@media (prefers-reduced-motion: reduce) { .admin-row-flash { animation-duration: 300ms; } }
+
+@keyframes bulk-rise { from { opacity: 0; transform: translateY(calc(12px * var(--motion))); } }
+.admin-bulk { animation: bulk-rise 180ms var(--ease-out) both; }
+

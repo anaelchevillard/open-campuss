@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Faille de sécurité
+    url: https://campuss.fr/contact
+    about: Signalement privé, jamais dans un ticket public (voir SECURITY.md)

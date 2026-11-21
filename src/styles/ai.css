@@ -1,0 +1,66 @@
+/* Campuss IA : seule zone multicolore du site (DESIGN.md §7). Bordure fixe au repos, animée au survol et pendant le travail. */
+@property --ai-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+:root {
+  --ai-1: #a10e2f; --ai-2: #be185d; --ai-3: #7c3aed; --ai-4: #2563eb;
+  --ai-stops: var(--ai-1), var(--ai-2), var(--ai-3), var(--ai-4), var(--ai-1);
+  --ai-tint: color-mix(in oklab, var(--ai-3) 6%, var(--card));
+}
+@media (prefers-color-scheme: dark) { :root:not(.light) { --ai-1: #f6a9b9; --ai-2: #f9a8d4; --ai-3: #c4b5fd; --ai-4: #93c5fd; --ai-tint: color-mix(in oklab, var(--ai-3) 10%, var(--card)); } }
+:root.dark { --ai-1: #f6a9b9; --ai-2: #f9a8d4; --ai-3: #c4b5fd; --ai-4: #93c5fd; --ai-tint: color-mix(in oklab, var(--ai-3) 10%, var(--card)); }
+
+/* Bordure dégradée sans élément enveloppant : deux fonds, padding-box et border-box */
+@utility ai-border {
+  border: 1.5px solid transparent;
+  background: linear-gradient(var(--ai-bg, var(--card)), var(--ai-bg, var(--card))) padding-box,
+              conic-gradient(from var(--ai-angle), var(--ai-stops)) border-box;
+  @media (forced-colors: active) { border-color: CanvasText; background: Canvas; }
+}
+/* Lueur derrière l'élément, éteinte au repos */
+@utility ai-glow {
+  position: relative; isolation: isolate;
+  &::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+    background: conic-gradient(from var(--ai-angle), var(--ai-stops)); filter: blur(12px);
+    opacity: 0; transition: opacity var(--dur-slow) var(--ease-out); pointer-events: none; }
+  &:hover::before, &:focus-visible::before { opacity: .45; }
+  &[data-busy]::before { opacity: .7; }
+  &[data-done]::before { opacity: 0; transition-duration: 600ms; }
+}
+.ai-border[data-animate]:hover, .ai-border[data-animate]:focus-visible { animation: ai-spin 4s linear infinite; }
+.ai-border[data-busy] { animation: ai-spin 1.6s linear infinite; }
+.ai-border[data-offscreen], .ai-border[data-still] { animation-play-state: paused; }
+.ai-glow[data-still]::before { opacity: 0; }
+@keyframes ai-spin { to { --ai-angle: 360deg; } }
+
+/* Texte en dégradé : chaque arrêt ≥ 4,5:1 ; 3 mots au plus, jamais le contenu généré */
+@utility ai-text {
+  background: linear-gradient(90deg, var(--ai-1), var(--ai-2) 35%, var(--ai-3) 70%, var(--ai-4));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  @media (forced-colors: active) { color: CanvasText; background: none; }
+}
+/* « Campuss IA rédige… » : un reflet passe sur un gris lisible */
+@utility ai-text-shimmer {
+  background: linear-gradient(90deg, var(--muted-foreground) 40%, var(--foreground) 50%, var(--muted-foreground) 60%);
+  background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: ai-sweep 1.6s linear infinite;
+  @media (forced-colors: active) { color: CanvasText; background: none; animation: none; }
+}
+/* Squelette : gris traversé d'une lueur colorée légère */
+@utility ai-skeleton {
+  border-radius: var(--radius-sm); min-height: 0.875rem;
+  background: linear-gradient(100deg, var(--muted) 30%, color-mix(in oklab, var(--ai-2) 14%, var(--muted)) 45%,
+              color-mix(in oklab, var(--ai-3) 14%, var(--muted)) 55%, var(--muted) 70%);
+  background-size: 220% 100%; animation: ai-sweep 1.6s linear infinite;
+}
+@keyframes ai-sweep { from { background-position: 200% 0; } to { background-position: -20% 0; } }
+/* Surface de résultat */
+@utility ai-surface { --ai-bg: var(--ai-tint); border-radius: var(--radius-xl); }
+
+/* L'étincelle de la marque tourne un peu au survol */
+.ai-spark { transition: transform var(--dur-slow) var(--ease-back); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  html:not(.reduce-motion) :is(a, button):hover > .ai-spark, html:not(.reduce-motion) :is(a, button):hover .ai-spark { transform: rotate(15deg) scale(1.1); }
+}
+
+/* Mouvement réduit : dégradés statiques, boucles coupées */
+@media (prefers-reduced-motion: reduce) { .ai-border, .ai-text-shimmer, .ai-skeleton { animation: none !important; } }
+html.reduce-motion :is(.ai-border, .ai-text-shimmer, .ai-skeleton) { animation: none !important; }

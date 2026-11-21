@@ -1,0 +1,58 @@
+{
+  "case-amis": {
+    "width": 310,
+    "height": 181
+  },
+  "case-annote": {
+    "width": 908,
+    "height": 340
+  },
+  "case-partiel": {
+    "width": 560,
+    "height": 338
+  },
+  "case-range": {
+    "width": 620,
+    "height": 300
+  },
+  "etape-reviser": {
+    "width": 393,
+    "height": 852
+  },
+  "ia-fiches": {
+    "width": 393,
+    "height": 852
+  },
+  "ia-quiz": {
+    "width": 393,
+    "height": 852
+  },
+  "ordi-accueil": {
+    "width": 1280,
+    "height": 800
+  },
+  "ordi-cours": {
+    "width": 1280,
+    "height": 800
+  },
+  "tablette-cours": {
+    "width": 820,
+    "height": 1180
+  },
+  "tel-accueil": {
+    "width": 393,
+    "height": 852
+  },
+  "tel-amis": {
+    "width": 393,
+    "height": 852
+  },
+  "tel-cours": {
+    "width": 393,
+    "height": 852
+  },
+  "tel-partiels": {
+    "width": 393,
+    "height": 852
+  }
+}

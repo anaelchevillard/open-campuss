@@ -1,0 +1,126 @@
+# Campuss : application, PostgreSQL et MinIO. Préparer .env (npm run setup), puis : docker compose up -d
+# Les données vivent dans des volumes Docker (docker volume ls). Production : voir docs/SELF_HOSTING.md.
+name: ${COMPOSE_PROJECT_NAME:-campuss}
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        GIT_SHA: ${GIT_SHA:-}
+    image: campuss-web:local
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # Services de ce fichier ; ces valeurs remplacent celles de .env, prévues pour npm run dev
+      DATABASE_URL: postgresql://campus:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env (npm run setup)}@db:5432/campus
+      S3_ENDPOINT: http://minio:9000
+      S3_REGION: us-east-1
+      S3_BUCKET: campus
+      S3_ACCESS_KEY: campus-app
+      S3_SECRET_KEY: ${S3_APP_SECRET:?S3_APP_SECRET manquant dans .env (npm run setup)}
+      ADMIN_PASSWORD_FILE: /secrets/admin-initial-password.txt
+    ports:
+      - "127.0.0.1:${CAMPUS_PORT:-3000}:3000"
+    volumes:
+      - secrets:/secrets
+      - work:/work
+      # Fichiers servis tels quels à /content/<chemin>, sans compte
+      - partage:/partage:ro
+    networks: [default, backend]
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m
+      - /app/.next/cache:size=64m,uid=1000
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 256
+    mem_limit: 768m
+    depends_on:
+      db: { condition: service_healthy }
+      minio-init: { condition: service_completed_successfully }
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"]
+      interval: 30s
+      timeout: 8s
+      retries: 3
+      start_period: 40s
+
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: campus
+      POSTGRES_DB: campus
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env (npm run setup)}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks: [backend]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 384m
+    shm_size: 128m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U campus -d campus"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # Image officielle retirée par MinIO : build Chainguard maintenue, épinglée par digest
+  minio:
+    image: cgr.dev/chainguard/minio@sha256:0a01100085e30fb08d2f39e39c9f5c9d83a95707f220b007d813b690cd41622d
+    restart: unless-stopped
+    command: ["server", "/data"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?MINIO_ROOT_USER manquant dans .env (npm run setup)}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?MINIO_ROOT_PASSWORD manquant dans .env (npm run setup)}
+      MINIO_BROWSER: "off"
+      MINIO_UPDATE: "off"
+    volumes:
+      - minio:/data
+    networks: [backend]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 512m
+    healthcheck:
+      test: ["CMD", "/usr/bin/mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # L'application n'a jamais les droits administrateur de MinIO : uniquement son bucket
+  minio-init:
+    image: cgr.dev/chainguard/minio-client@sha256:8419d1a4518c12889cf59f11043cb2318175841eb727c415e0aacbd0a749846f
+    restart: "no"
+    entrypoint: ["sh", "/init.sh"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      S3_APP_SECRET: ${S3_APP_SECRET}
+    volumes:
+      - ./deploy/minio-init.sh:/init.sh:ro
+    networks: [backend]
+    depends_on:
+      minio: { condition: service_started }
+
+  # Antivirus facultatif (environ 1,2 Go de mémoire) : CLAMAV_HOST=clamav dans .env,
+  # puis docker compose --profile antivirus up -d
+  clamav:
+    image: clamav/clamav:1.4
+    profiles: [antivirus]
+    restart: unless-stopped
+    volumes:
+      - clamav:/var/lib/clamav
+    networks: [default, backend]
+    mem_limit: 1600m
+
+networks:
+  backend:
+    internal: true
+
+volumes:
+  postgres:
+  minio:
+  secrets:
+  work:
+  partage:
+  clamav:

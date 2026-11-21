@@ -1,0 +1,90 @@
+/* Base commune : typographie, focus, sélection, échelle de titres (DESIGN.md §2.11) */
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { @apply font-sans; font-synthesis: none; hanging-punctuation: first last; interpolate-size: allow-keywords; }
+  body { @apply bg-background text-foreground; text-rendering: optimizeLegibility; }
+  h1, h2, h3 { font-family: var(--font-heading); text-wrap: balance; }
+  p, li, dd, blockquote { text-wrap: pretty; }
+  /* Safari (iOS) donne aux champs de date une largeur minimale propre qui déborde au téléphone */
+  input:is([type=date], [type=time], [type=datetime-local]) { min-width: 0; max-width: 100%; -webkit-appearance: none; appearance: none; }
+  ::-webkit-date-and-time-value { text-align: start; }
+  /* Croix native des champs de recherche (bleue sous Chrome et Safari) masquée : un bouton de la charte la remplace */
+  input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+}
+
+::selection { background: var(--highlighter); color: var(--highlighter-ink); }
+/* Les champs de la charte ont leur propre anneau (bordure + ring) : pas de second contour par-dessus */
+:focus-visible:where(:not(input[data-slot=input], textarea[data-slot=textarea])) { outline: 2px solid var(--ring); outline-offset: 2px; }
+a, button { -webkit-tap-highlight-color: transparent; }
+select.native { appearance: auto; }
+@media (pointer: coarse) {
+  select.native { min-height: 44px; }
+  input[type=checkbox] { min-width: 20px; min-height: 20px; }
+}
+
+/* Échelle de titres : un .title par écran, .heading reste petit, .display pour la page publique seulement */
+@utility display { font-family: var(--font-heading); font-weight: 700; font-size: 2.25rem; line-height: 1.1; text-wrap: balance; @media (min-width: 48rem) { font-size: 3rem; } }
+@utility title { font-family: var(--font-heading); font-weight: 600; font-size: 1.5rem; line-height: 1.2; text-wrap: balance; @media (min-width: 48rem) { font-size: 1.875rem; } }
+@utility heading { font-family: var(--font-heading); font-weight: 600; font-size: 1.125rem; line-height: 1.35; text-wrap: balance; }
+/* Anciens noms, gardés le temps de la refonte */
+@utility display-1 { @apply display; }
+@utility display-2 { @apply title; }
+@utility section-title { @apply heading; }
+
+/* Titres de cartes : coupés proprement, jamais n'importe où */
+@utility card-title { hyphens: auto; overflow-wrap: break-word; }
+
+mark.found {
+  color: var(--highlighter-ink);
+  background: linear-gradient(transparent 12%, var(--highlighter) 12% 88%, transparent 88%) no-repeat;
+  animation: stroke 420ms var(--ease-out) both;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.line-list > li + li { border-top: 1px solid var(--border); }
+
+details > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary::after { content: ""; flex-shrink: 0; width: 0.5rem; height: 0.5rem; margin-right: 0.25rem; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; opacity: 0.5; transform: rotate(45deg) translate(-2px, -2px); transition: transform var(--dur-base) var(--ease-out); }
+details[open] > summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+::details-content { transition: content-visibility var(--dur-base) allow-discrete, height var(--dur-base) var(--ease-out); height: 0; overflow: clip; }
+details[open]::details-content { height: auto; }
+
+/* Couverture d'un cours sans image (cartes) : la teinte de la matière (--cover-h), en dégradé doux et trame de points.
+   Peu de chroma, contraste du sigle ≥ 4,5:1 en clair comme en sombre ; aucune image, aucun dessin figuratif. */
+.subject-cover {
+  --cover-a: light-dark(oklch(0.95 0.03 var(--cover-h)), oklch(0.31 0.045 var(--cover-h)));
+  --cover-b: light-dark(oklch(0.87 0.065 var(--cover-h)), oklch(0.24 0.05 var(--cover-h)));
+  color: light-dark(oklch(0.4 0.1 var(--cover-h)), oklch(0.88 0.06 var(--cover-h)));
+  background:
+    radial-gradient(color-mix(in oklab, currentColor 16%, transparent) 1px, transparent 1.5px) 0 0 / 14px 14px,
+    linear-gradient(135deg, var(--cover-a), var(--cover-b));
+}
+
+/* Pages légales */
+.legal { max-width: 70ch; line-height: 1.65; }
+.legal h2 { margin-top: 2em; font-size: 1.35rem; line-height: 1.3; font-weight: 600; }
+.legal h3 { margin-top: 1.4em; font-size: 1.08rem; font-weight: 600; }
+.legal p, .legal ul, .legal table { margin-top: 0.7em; }
+.legal ul { list-style: disc; padding-left: 1.4em; }
+.legal li + li { margin-top: 0.3em; }
+.legal a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
+.legal table { width: 100%; border-collapse: collapse; font-size: 0.97em; }
+.legal th, .legal td { border-bottom: 1px solid var(--border); padding: 0.45em 0.7em 0.45em 0; text-align: left; vertical-align: top; }
+@media (max-width: 767px) { .legal table { display: block; overflow-x: auto; } }
+
+.badge-locked { filter: grayscale(1); opacity: 0.45; }
+
+/* Vignettes distantes de react-notion-x, que la politique du site bloque : le lien suffit */
+.notion-host .notion-link-mention-icon,
+.notion-host .notion-link-mention-preview-thumbnail,
+.notion-host .notion-link-mention-preview-icon,
+.notion-host .notion-preview-card-github-shields { display: none; }
+
+/* Bande de consentement en tête : à droite de la barre latérale fixe de l'ordinateur */
+@media (min-width: 1024px) {
+  body:has([data-slot=sidebar][data-state=expanded]) .consent-strip { padding-left: 16rem; }
+  body:has([data-slot=sidebar][data-state=collapsed]) .consent-strip { padding-left: 3.5rem; }
+}

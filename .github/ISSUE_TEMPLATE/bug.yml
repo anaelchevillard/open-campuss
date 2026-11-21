@@ -1,0 +1,27 @@
+name: Bogue
+description: Quelque chose ne marche pas comme prévu
+labels: [bogue]
+body:
+  - type: markdown
+    attributes:
+      value: "Faille de sécurité : ne pas ouvrir de ticket public, voir SECURITY.md. Ne collez ni mot de passe, ni jeton, ni donnée personnelle."
+  - type: textarea
+    id: steps
+    attributes:
+      label: Étapes pour reproduire
+      placeholder: "1. Aller sur…\n2. Cliquer sur…"
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes:
+      label: Résultat attendu, résultat obtenu
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Commit ou date (Administration › Système), et instance (campuss.fr, locale, auto-hébergée)
+  - type: input
+    id: browser
+    attributes:
+      label: Navigateur et appareil

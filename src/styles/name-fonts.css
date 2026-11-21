@@ -1,0 +1,206 @@
+/*
+ * Personnalisation visible par les autres (DESIGN.md §2.6 et §10).
+ * Les polices de nom ne sont téléchargées que lorsqu'un nom riche les utilise : @font-face ne charge rien d'avance.
+ * Compensation : même hauteur d'x que Source Sans 3 (0,478 em), mesurée avec fontTools.
+ * Massilia 0,500 · JetBrains Mono 0,550 · Caveat 0,400 · Nunito 0,484 · Barlow Condensed 0,506 (Source Serif 4 : fonts.css).
+ */
+@font-face { font-family: "Nom Massilia"; src: url("../../fonts/massilia/massilia-vf.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; size-adjust: 95.6%; ascent-override: 107.1%; descent-override: 41.8%; line-gap-override: 0%; }
+@font-face { font-family: "Nom JetBrains Mono"; src: url("../../fonts/name/jetbrains-mono-latin-wght-normal.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; size-adjust: 86.9%; ascent-override: 117.8%; descent-override: 46.0%; line-gap-override: 0%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Nom JetBrains Mono"; src: url("../../fonts/name/jetbrains-mono-latin-ext-wght-normal.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; size-adjust: 86.9%; ascent-override: 117.8%; descent-override: 46.0%; line-gap-override: 0%; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Nom Caveat"; src: url("../../fonts/name/caveat-latin-wght-normal.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; size-adjust: 119.5%; ascent-override: 85.7%; descent-override: 33.5%; line-gap-override: 0%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Nom Caveat"; src: url("../../fonts/name/caveat-latin-ext-wght-normal.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; size-adjust: 119.5%; ascent-override: 85.7%; descent-override: 33.5%; line-gap-override: 0%; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Nom Nunito"; src: url("../../fonts/name/nunito-latin-wght-normal.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; size-adjust: 98.8%; ascent-override: 103.7%; descent-override: 40.5%; line-gap-override: 0%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Nom Nunito"; src: url("../../fonts/name/nunito-latin-ext-wght-normal.woff2") format("woff2"); font-weight: 200 900; font-style: normal; font-display: swap; size-adjust: 98.8%; ascent-override: 103.7%; descent-override: 40.5%; line-gap-override: 0%; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Nom Barlow Condensed"; src: url("../../fonts/name/barlow-condensed-latin-400-normal.woff2") format("woff2"); font-weight: 100 549; font-style: normal; font-display: swap; size-adjust: 94.5%; ascent-override: 108.4%; descent-override: 42.3%; line-gap-override: 0%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Nom Barlow Condensed"; src: url("../../fonts/name/barlow-condensed-latin-ext-400-normal.woff2") format("woff2"); font-weight: 100 549; font-style: normal; font-display: swap; size-adjust: 94.5%; ascent-override: 108.4%; descent-override: 42.3%; line-gap-override: 0%; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Nom Barlow Condensed"; src: url("../../fonts/name/barlow-condensed-latin-600-normal.woff2") format("woff2"); font-weight: 550 900; font-style: normal; font-display: swap; size-adjust: 94.5%; ascent-override: 108.4%; descent-override: 42.3%; line-gap-override: 0%; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Nom Barlow Condensed"; src: url("../../fonts/name/barlow-condensed-latin-ext-600-normal.woff2") format("woff2"); font-weight: 550 900; font-style: normal; font-display: swap; size-adjust: 94.5%; ascent-override: 108.4%; descent-override: 42.3%; line-gap-override: 0%; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+/* Rareté des badges : couleur + forme + mot, jamais la couleur seule */
+:root {
+  --rarity-commun: light-dark(#6c6266, #a99fa3); --rarity-commun-tint: light-dark(#f3f0f1, #2a2527);
+  --rarity-rare: light-dark(#1d4ed8, #93c5fd); --rarity-rare-tint: light-dark(#eff6ff, #0f1d33);
+  --rarity-epique: light-dark(#6d28d9, #c4b5fd); --rarity-epique-tint: light-dark(#f5f3ff, #1f1633);
+  --rarity-legendaire: light-dark(#92400e, #fcd34d); --rarity-legendaire-tint: light-dark(#fffbeb, #2b2010);
+  --rarity-special: light-dark(#8a0c29, #f6a9b9); --rarity-special-tint: light-dark(#fbeef1, #331820);
+}
+[data-rarity="commun"] { --r: var(--rarity-commun); --r-tint: var(--rarity-commun-tint); }
+[data-rarity="rare"] { --r: var(--rarity-rare); --r-tint: var(--rarity-rare-tint); }
+[data-rarity="epique"] { --r: var(--rarity-epique); --r-tint: var(--rarity-epique-tint); }
+[data-rarity="legendaire"] { --r: var(--rarity-legendaire); --r-tint: var(--rarity-legendaire-tint); }
+[data-rarity="special"] { --r: var(--rarity-special); --r-tint: var(--rarity-special-tint); }
+
+/* Nom d'une personne */
+/* Le remplissage prend la couleur du nom, sinon celle du texte : jamais currentColor, qui vaut « transparent » une fois le texte découpé */
+.user-name-text { --name-fill: linear-gradient(var(--name-color, var(--foreground)), var(--name-color, var(--foreground))); }
+.user-name[data-hue] .user-name-text { color: var(--name-color); }
+.user-name[data-font] .user-name-text { font-family: var(--name-font), "Source Sans 3", ui-sans-serif, sans-serif; }
+.user-name[data-gradient] .user-name-text, .user-name[data-effect] .user-name-text {
+  background-image: var(--name-fill); -webkit-background-clip: text; background-clip: text; color: transparent;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.user-name[data-gradient] .user-name-text { --name-fill: linear-gradient(90deg, var(--name-from), var(--name-to)); }
+/* Reflet : une bande brillante qui balaie le nom en 1,5 s, toutes les 5 s, en boucle, coupée en mouvement réduit chez celui qui regarde.
+   Bord doré, cœur clair : sur un nom coloré, le cœur blanc se voit ; sur le nom par défaut (texte foncé ou blanc), c'est l'or. */
+.user-name[data-effect] .user-name-text {
+  --shine: light-dark(rgb(255 255 255 / .92), rgb(255 255 255 / .85)); --shine-edge: light-dark(rgb(255 255 255 / .45), rgb(255 255 255 / .35));
+  background-image: linear-gradient(105deg, transparent 38%, var(--shine-edge) 44%, var(--shine) 50%, var(--shine-edge) 56%, transparent 62%), var(--name-fill);
+  background-size: 300% 100%, 100% 100%; background-repeat: no-repeat; background-position: 150% 0, 0 0;
+}
+.user-name[data-effect]:not([data-hue], [data-gradient]) .user-name-text { --shine: light-dark(oklch(0.8 0.16 85), oklch(0.92 0.12 92)); --shine-edge: light-dark(oklch(0.62 0.14 70), oklch(0.8 0.16 78)); }
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.reduce-motion) .user-name[data-effect] .user-name-text { animation: name-shine 5s var(--ease-out) .3s infinite both; }
+}
+/* 30 % du cycle (1,5 s) pour traverser, puis le nom reste au repos jusqu'au passage suivant */
+@keyframes name-shine { 0% { background-position: 150% 0, 0 0; } 30%, 100% { background-position: -50% 0, 0 0; } }
+@media (forced-colors: active) { .user-name .user-name-text { color: CanvasText !important; background: none !important; } }
+
+/* Réglage « Styles des autres » : sobres (couleur seule) ou masqués ; au téléphone, sobres dans les listes */
+html.others-plain .user-name:not([data-self]) .user-name-text,
+html.others-off .user-name:not([data-self]) .user-name-text { background: none !important; color: var(--name-solid, inherit) !important; font-family: inherit !important; animation: none !important; }
+html.others-off .user-name:not([data-self]) .user-name-text { color: inherit !important; }
+html.others-off .user-name:not([data-self]) .user-name-badge { display: none; }
+/* Dans les listes du téléphone : police et couleur gardées, seul le reflet s'arrête */
+@media (max-width: 767px) {
+  .user-name[data-list]:not([data-self]) .user-name-text { animation: none; }
+}
+/* Police de lecture adaptée : les noms des autres la suivent (jamais OpenDyslexic hors des cours) */
+html:is(.read-atkinson, .read-serif) .user-name[data-font]:not([data-self]) .user-name-text { font-family: var(--font-read), "Source Sans 3", sans-serif; }
+html.read-od .user-name[data-font]:not([data-self]) .user-name-text { font-family: "Source Sans 3", sans-serif; }
+
+/* Cadre d'avatar : un anneau séparé de la photo par la couleur de la carte */
+/* Le cadre épouse l'avatar : jamais étiré par une grille ou une colonne flexible (sinon l'anneau devient une ellipse) */
+.avatar-frame { position: relative; display: inline-flex; flex: none; width: max-content; height: max-content; justify-self: start; align-self: start; border-radius: 9999px; }
+.avatar-frame > :first-child { flex: none; }
+.avatar-frame[data-frame] > :first-child { box-shadow: 0 0 0 3px var(--frame-gap, var(--card)), 0 0 0 6px var(--frame); }
+.avatar-frame[data-frame="rarete"] { --frame: var(--r, var(--rarity-commun)); }
+.avatar-frame[data-frame="serie"] { --frame: var(--warning); }
+.avatar-frame[data-frame="bouclier"] { --frame: var(--brand-text); }
+.avatar-frame[data-frame="laurier"] { --frame: var(--rarity-legendaire); }
+.avatar-frame[data-frame="plume"] { --frame: var(--rarity-rare); }
+/* Anneau : métal brossé (reflets clairs et sombres en conique), pas un simple cercle uni */
+.avatar-frame[data-frame="anneau"] { --frame: oklch(0.72 0.02 260); --frame-fill: conic-gradient(from 30deg, oklch(0.93 0.01 260), oklch(0.62 0.02 260), oklch(0.88 0.015 260), oklch(0.5 0.02 260), oklch(0.93 0.01 260), oklch(0.66 0.02 260), oklch(0.93 0.01 260)); }
+/* Cadres dessinés : l'anneau vient de ::before / ::after (3 px, centré à 4,5 px de la photo), pas de
+   l'ombre portée. Mouvement : seulement transform et opacity, sur un calque à part (aucun repeint par image) ; will-change
+   n'est posé que pendant l'animation. Mouvement réduit (système ou réglage) : rendu fixe, pensé pour être beau immobile. */
+.avatar-frame { isolation: isolate; --ring-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px)); }
+.avatar-frame:is([data-frame="anneau"], [data-frame="duo"], [data-frame="prisme"], [data-frame="comete"], [data-frame="orbite"], [data-frame="aurore"], [data-frame="vol"]) > :first-child { box-shadow: 0 0 0 3px var(--frame-gap, var(--card)); }
+.avatar-frame[data-frame]::before, .avatar-frame[data-frame]::after { position: absolute; border-radius: 9999px; pointer-events: none; }
+/* Anneau plein : dégradé masqué au centre */
+.avatar-frame:is([data-frame="anneau"], [data-frame="duo"], [data-frame="prisme"], [data-frame="comete"], [data-frame="aurore"], [data-frame="vol"])::before {
+  content: ""; inset: -6px; background: var(--frame-fill); -webkit-mask: var(--ring-mask); mask: var(--ring-mask);
+}
+.avatar-frame[data-frame="duo"] { --frame: var(--brand-text); --frame-fill: conic-gradient(from 210deg, var(--brand-text), var(--rarity-legendaire), var(--brand-text)); }
+/* Prisme : le spectre de la liste (aucune teinte entre 250 et 290) qui tourne en 14 s */
+.avatar-frame[data-frame="prisme"] { --frame: oklch(0.68 0.15 210); --frame-fill: conic-gradient(oklch(0.68 0.16 20), oklch(0.78 0.15 85), oklch(0.7 0.15 160), oklch(0.68 0.14 230), oklch(0.66 0.17 320), oklch(0.68 0.16 20)); }
+
+/* Comète : une traînée qui s'éclaire jusqu'à sa tête, sur une piste discrète ; un tour en 3,6 s. Immobile : la tête en haut à droite */
+.avatar-frame[data-frame="comete"] { --frame: var(--brand-text); --frame-fill:
+  radial-gradient(circle at 50% 1.5px, color-mix(in oklab, var(--brand-text) 35%, white) 0 1.5px, transparent 2.5px),
+  conic-gradient(transparent 0 45%, color-mix(in oklab, var(--brand-text) 28%, transparent) 68%, color-mix(in oklab, var(--brand-text) 80%, transparent) 92%, var(--brand-text) 100%); }
+.avatar-frame[data-frame="comete"]::before { transform: rotate(45deg); }
+.avatar-frame[data-frame="comete"]::after { content: ""; inset: -6px; background: var(--border); -webkit-mask: var(--ring-mask); mask: var(--ring-mask); }
+.avatar-frame[data-frame="comete"]::before { z-index: 1; }
+
+/* Orbite : une piste fine et deux satellites opposés, un tour en 9 s */
+.avatar-frame[data-frame="orbite"] { --frame: var(--brand-text); }
+.avatar-frame[data-frame="orbite"]::after {
+  content: ""; inset: -5.25px; background: color-mix(in oklab, var(--brand-text) 40%, transparent);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px)); mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1.5px));
+}
+.avatar-frame[data-frame="orbite"]::before {
+  content: ""; inset: -8px; z-index: 1; transform: rotate(45deg);
+  background: radial-gradient(circle at 50% 3.5px, var(--brand-text) 0 3px, transparent 3.5px), radial-gradient(circle at 50% calc(100% - 3.5px), color-mix(in oklab, var(--brand-text) 55%, transparent) 0 2px, transparent 2.5px);
+}
+
+/* Aurore : deux voiles de couleur qui tournent en sens contraires, à des vitesses différentes : la teinte glisse sans clignoter */
+.avatar-frame[data-frame="aurore"] { --frame: oklch(0.72 0.13 170); --frame-fill: conic-gradient(oklch(0.74 0.14 160), oklch(0.72 0.12 185) 25%, oklch(0.7 0.15 320) 55%, oklch(0.74 0.12 350) 75%, oklch(0.74 0.14 160)); }
+.avatar-frame[data-frame="aurore"]::after {
+  content: ""; inset: -6px; opacity: .6; transform: rotate(120deg);
+  background: conic-gradient(oklch(0.8 0.12 185), transparent 30%, oklch(0.78 0.1 100) 50%, transparent 70%, oklch(0.8 0.12 185));
+  -webkit-mask: var(--ring-mask); mask: var(--ring-mask);
+}
+
+/* Ligne de vol : un anneau en pointillés qui avance lentement, un tour en 24 s */
+.avatar-frame[data-frame="vol"] { --frame: var(--brand-text); --frame-fill: repeating-conic-gradient(var(--brand-text) 0 7deg, transparent 7deg 15deg); }
+
+/* Pulsation : l'anneau plein, et une onde qui s'en détache puis s'efface toutes les 3,2 s. Immobile : l'anneau seul */
+.avatar-frame[data-frame="pulsation"] { --frame: var(--brand-text); }
+.avatar-frame[data-frame="pulsation"]::after { content: ""; inset: -6px; border: 2px solid var(--brand-text); opacity: 0; }
+
+/* Éclats : l'anneau doré et six éclats autour, qui s'allument trois par trois en fondu (3,6 s, jamais un clignotement) */
+.avatar-frame[data-frame="eclats"] { --frame: var(--rarity-legendaire); --spark: color-mix(in oklab, var(--rarity-legendaire) 75%, white); --spark-r: calc(50% - 2.5px); }
+.avatar-frame[data-frame="eclats"]::before, .avatar-frame[data-frame="eclats"]::after { content: ""; inset: -11px; }
+.avatar-frame[data-frame="eclats"]::before { background:
+  radial-gradient(circle at 50% 2.5px, var(--spark) 0 1.75px, transparent 2.5px),
+  radial-gradient(circle at calc(50% + var(--spark-r) * 0.866) calc(50% + var(--spark-r) * 0.5), var(--spark) 0 1.75px, transparent 2.5px),
+  radial-gradient(circle at calc(50% - var(--spark-r) * 0.866) calc(50% + var(--spark-r) * 0.5), var(--spark) 0 1.75px, transparent 2.5px); }
+.avatar-frame[data-frame="eclats"]::after { opacity: .35; background:
+  radial-gradient(circle at 50% calc(100% - 2.5px), var(--spark) 0 1.75px, transparent 2.5px),
+  radial-gradient(circle at calc(50% + var(--spark-r) * 0.866) calc(50% - var(--spark-r) * 0.5), var(--spark) 0 1.75px, transparent 2.5px),
+  radial-gradient(circle at calc(50% - var(--spark-r) * 0.866) calc(50% - var(--spark-r) * 0.5), var(--spark) 0 1.75px, transparent 2.5px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.reduce-motion) .avatar-frame[data-frame="prisme"]::before { will-change: transform; animation: frame-turn 14s linear infinite; }
+  html:not(.reduce-motion) .avatar-frame[data-frame="comete"]::before { will-change: transform; animation: frame-turn 3.6s linear infinite; }
+  html:not(.reduce-motion) .avatar-frame[data-frame="orbite"]::before { will-change: transform; animation: frame-turn 9s linear infinite; }
+  html:not(.reduce-motion) .avatar-frame[data-frame="aurore"]::before { will-change: transform; animation: frame-turn 18s linear infinite; }
+  html:not(.reduce-motion) .avatar-frame[data-frame="aurore"]::after { will-change: transform; animation: frame-turn-back 26s linear infinite; }
+  html:not(.reduce-motion) .avatar-frame[data-frame="vol"]::before { will-change: transform; animation: frame-turn 24s linear infinite; }
+  html:not(.reduce-motion) .avatar-frame[data-frame="pulsation"]::after { will-change: transform, opacity; animation: frame-pulse 3.2s var(--ease-out, ease-out) infinite; }
+  html:not(.reduce-motion) .avatar-frame[data-frame="eclats"]::before { will-change: opacity; animation: frame-twinkle 3.6s ease-in-out infinite alternate; }
+  html:not(.reduce-motion) .avatar-frame[data-frame="eclats"]::after { will-change: opacity; animation: frame-twinkle 3.6s ease-in-out infinite alternate-reverse; }
+}
+/* Les rotations partent de la pose immobile (comète et orbite à 45°, aurore à 120°) : rien ne saute au démarrage */
+@keyframes frame-turn { from { transform: rotate(var(--turn-from, 0deg)); } to { transform: rotate(calc(var(--turn-from, 0deg) + 360deg)); } }
+@keyframes frame-turn-back { from { transform: rotate(120deg); } to { transform: rotate(-240deg); } }
+@keyframes frame-pulse { 0% { transform: scale(1); opacity: .65; } 55%, 100% { transform: scale(1.22); opacity: 0; } }
+@keyframes frame-twinkle { from { opacity: 1; } to { opacity: .35; } }
+.avatar-frame:is([data-frame="comete"], [data-frame="orbite"]) { --turn-from: 45deg; }
+
+/* Bannières animées : un dégradé trois fois plus grand qui dérive en 24 s, aller-retour ; immobile en mouvement réduit */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.reduce-motion) [data-banner-anim] { animation: banner-drift 24s ease-in-out infinite alternate; }
+}
+@keyframes banner-drift { to { background-position: 100% 50%; } }
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.reduce-motion) .avatar-frame[data-frame][data-effect="lueur"] > :first-child { animation: frame-glow 4s ease-in-out .3s infinite both; }
+}
+/* Lueur fixe (« halo ») : le même halo, posé une fois pour toutes, sans animation (donc aussi en mouvement réduit) */
+.avatar-frame[data-frame][data-effect="halo"] > :first-child { box-shadow: 0 0 0 3px var(--frame-gap, var(--card)), 0 0 0 6px var(--frame), 0 0 18px 6px color-mix(in oklab, var(--frame) 50%, transparent); }
+.avatar-frame:is([data-frame="anneau"], [data-frame="duo"], [data-frame="prisme"], [data-frame="comete"], [data-frame="orbite"], [data-frame="aurore"], [data-frame="vol"])[data-effect="halo"] > :first-child { box-shadow: 0 0 0 3px var(--frame-gap, var(--card)), 0 0 18px 6px color-mix(in oklab, var(--frame) 50%, transparent); }
+/* Lueur : une respiration continue ; immobile, sans halo, en mouvement réduit */
+@keyframes frame-glow {
+  0%, 100% { box-shadow: 0 0 0 3px var(--frame-gap, var(--card)), 0 0 0 6px var(--frame), 0 0 0 6px transparent; }
+  50% { box-shadow: 0 0 0 3px var(--frame-gap, var(--card)), 0 0 0 6px var(--frame), 0 0 22px 6px color-mix(in oklab, var(--frame) 55%, transparent); }
+}
+
+/* Graphe d'activité : 5 nuances de la couleur active */
+.activity { --act: var(--brand-text); }
+.activity .a0 { fill: var(--muted); }
+.activity .a1 { fill: color-mix(in oklab, var(--act) 28%, var(--card)); }
+.activity .a2 { fill: color-mix(in oklab, var(--act) 52%, var(--card)); }
+.activity .a3 { fill: color-mix(in oklab, var(--act) 76%, var(--card)); }
+.activity .a4 { fill: var(--act); }
+.activity-legend .a0 { background: var(--muted); } .activity-legend .a1 { background: color-mix(in oklab, var(--act) 28%, var(--card)); }
+.activity-legend .a2 { background: color-mix(in oklab, var(--act) 52%, var(--card)); } .activity-legend .a3 { background: color-mix(in oklab, var(--act) 76%, var(--card)); }
+.activity-legend .a4 { background: var(--act); }
+/* Carte d'activité du profil : la plus longue des quatre versions qui tient dans le panneau, à pleine largeur.
+   Largeurs naturelles (semaines × 14 px − 3) : 53 → 739, 40 → 557, 27 → 375, 20 → 277. */
+.activity-fit { container-type: inline-size; }
+.activity-fit > svg { display: none; width: 100%; height: auto; }
+@container (min-width: 739px) { .activity-fit > [data-weeks="53"] { display: block; } }
+@container (min-width: 557px) and (max-width: 738.98px) { .activity-fit > [data-weeks="40"] { display: block; } }
+@container (min-width: 375px) and (max-width: 556.98px) { .activity-fit > [data-weeks="27"] { display: block; } }
+@container (max-width: 374.98px) { .activity-fit > [data-weeks="20"] { display: block; } }
+
+/* Sous-page des paramètres au téléphone : glissement horizontal de 220 ms, fondu seul en mouvement réduit */
+@media (max-width: 1023px) { .settings-sub { animation: settings-in 220ms var(--ease-out) both; } }
+@keyframes settings-in { from { opacity: 0; transform: translateX(calc(24px * var(--motion))); } }
+.preview-swap { animation: fade var(--dur-base) var(--ease-out) both; }
+
+/* Aperçu clair ou sombre, indépendant du thème de la page */
+.scheme-light { color-scheme: light; --background: #fbfafa; --foreground: #1f1619; --card: #ffffff; --card-foreground: #1f1619; --muted: #f3f0f1; --muted-foreground: #6c6266; --border: #e7e2e4; --brand-tint: #fbeef1; --brand-text: #8a0c29; --link: #a10e2f; --warning: #b45309; --secondary: #f3f0f1; --secondary-foreground: #1f1619; }
+.scheme-dark { color-scheme: dark; --background: #151213; --foreground: #f4f1f2; --card: #1e1a1c; --card-foreground: #f4f1f2; --muted: #2a2527; --muted-foreground: #a99fa3; --border: #322c2f; --brand-tint: #331820; --brand-text: #f6a9b9; --link: #f08aa0; --warning: #fbbf24; --secondary: #2a2527; --secondary-foreground: #f4f1f2; }
+:is(.scheme-light, .scheme-dark) { color: var(--foreground); }
+

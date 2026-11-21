@@ -1,0 +1,252 @@
+/* Mise en page des cours rédigés, de l'éditeur et des annotations. */
+
+/* La mise en page commune de tous les cours rédigés */
+/* Taille, police et interligne : réglages de lecture (reading-prefs.css) */
+.course h2 { margin-top: 2.2em; font-size: 1.5rem; line-height: 1.25; font-weight: 600; scroll-margin-top: 5rem; }
+.course h3 { margin-top: 1.7em; font-size: 1.2rem; line-height: 1.3; font-weight: 600; scroll-margin-top: 5rem; }
+.course h2:first-child { margin-top: 0; }
+.course ul { list-style: disc; padding-left: 1.4em; }
+.course ol { list-style: decimal; padding-left: 1.4em; }
+.course li + li { margin-top: 0.25em; }
+.course a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
+.course strong { font-weight: 600; }
+.course img { max-width: 100%; height: auto; border-radius: var(--radius); }
+.course hr { margin-block: 2em; border-color: var(--border); }
+.course code { font-size: 0.9em; padding: 0.1em 0.3em; border-radius: 3px; background: var(--muted); }
+.course pre { overflow-x: auto; padding: 0.9em 1em; border-radius: var(--radius); background: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+.course pre code { padding: 0; background: none; }
+.course table { display: block; width: fit-content; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 0.95em; }
+.course th, .course td { border: 1px solid var(--border); padding: 0.4em 0.7em; text-align: left; }
+.course th { background: var(--muted); font-weight: 600; }
+.course .katex-display { overflow-x: auto; overflow-y: hidden; padding-block: 0.3em; }
+.course blockquote { padding: 0.7em 1em; border-left: 3px solid var(--border); background: var(--muted); border-radius: 0 var(--radius) var(--radius) 0; }
+.course blockquote.definition, .course blockquote.theoreme { border-left-color: var(--primary); }
+.course blockquote.attention { border-left-color: var(--highlighter); }
+.course blockquote.retenir { border-left-color: var(--success); }
+.course blockquote > * + * { margin-top: 0.5em; }
+
+/* Tabulation de l'éditeur : le bloc enfant est seulement décalé, du même pas que dans l'éditeur (24 px), sans filet.
+   Un filet à gauche se lit comme une citation : c'était lui, le trait vertical de la version publiée. */
+.course .course-indent { padding-left: 1.5rem; }
+.course .course-indent > * + * { margin-top: var(--read-gap); }
+.course .course-indent + .course-indent { margin-top: var(--read-gap); }
+
+/* Écoute : le passage lu à voix haute */
+.course .tts-current { background-image: linear-gradient(color-mix(in oklab, var(--primary) 10%, transparent), color-mix(in oklab, var(--primary) 10%, transparent)); border-radius: 0.2em; box-shadow: 0 0 0 0.25em color-mix(in oklab, var(--primary) 10%, transparent); }
+
+/* Marquages du cours, identiques dans l'éditeur et à la lecture */
+.hl-yellow { background: #fde68a; color: inherit; } .hl-green { background: #bbf7d0; color: inherit; } .hl-blue { background: #bfdbfe; color: inherit; } .hl-pink { background: #fbcfe8; color: inherit; } .hl-purple { background: #ddd6fe; color: inherit; } .hl-orange { background: #fed7aa; color: inherit; } .hl-red { background: #fecaca; color: inherit; } .hl-gray { background: #e5e7eb; color: inherit; } .hl-brown { background: #e7d8c9; color: inherit; }
+.tc-gray { color: #6b7280; } .tc-brown { color: #92400e; } .tc-red { color: #b91c1c; } .tc-orange { color: #c2410c; } .tc-yellow { color: #a16207; } .tc-green { color: #15803d; } .tc-blue { color: #1d4ed8; } .tc-purple { color: #7e22ce; } .tc-pink { color: #be185d; }
+@media (prefers-color-scheme: dark) { :root:not(.light) :is(.hl-yellow, .hl-green, .hl-blue, .hl-pink, .hl-purple, .hl-orange, .hl-red, .hl-gray, .hl-brown) { color: #1f1619; } :root:not(.light) :is(.tc-gray, .tc-brown, .tc-red, .tc-orange, .tc-yellow, .tc-green, .tc-blue, .tc-purple, .tc-pink) { filter: brightness(1.7); } }
+:root.dark :is(.hl-yellow, .hl-green, .hl-blue, .hl-pink, .hl-purple, .hl-orange, .hl-red, .hl-gray, .hl-brown) { color: #1f1619; }
+:root.dark :is(.tc-gray, .tc-brown, .tc-red, .tc-orange, .tc-yellow, .tc-green, .tc-blue, .tc-purple, .tc-pink) { filter: brightness(1.7); }
+.course mark { border-radius: 0.2em; padding-inline: 0.15em; }
+.course video, .course audio { width: 100%; max-width: 100%; border-radius: var(--radius); }
+.course iframe { width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius); }
+.course details { padding: 0.5em 0.75em; border-radius: var(--radius); background: var(--muted); }
+.course details > summary { cursor: pointer; font-weight: 600; }
+.course details > * + * { margin-top: 0.6em; }
+.course .course-file { display: inline-flex; padding: 0.4em 0.8em; border-radius: var(--radius); background: var(--muted); text-decoration: none; font-weight: 600; }
+.course .course-file::before { content: "↓"; margin-right: 0.5em; }
+
+/* L'éditeur : mêmes polices et mêmes titres que le cours publié */
+.bn-container { --bn-font-family: var(--font-text); --bn-border-radius: var(--radius); --bn-colors-editor-background: transparent; --bn-colors-editor-text: var(--foreground); --bn-colors-menu-background: var(--popover); --bn-colors-menu-text: var(--popover-foreground); --bn-colors-hovered-background: var(--muted); --bn-colors-selected-background: var(--brand-tint); --bn-colors-selected-text: var(--brand-text); --bn-colors-border: var(--border); --bn-colors-side-menu: var(--muted-foreground); }
+.editor-callout { display: flex; align-items: flex-start; gap: 0.75rem; width: 100%; padding: 0.7em 1em; border-left: 3px solid var(--primary); border-radius: var(--radius); background: var(--muted); }
+.editor-callout[data-kind="attention"] { border-left-color: var(--highlighter); }
+.editor-callout[data-kind="retenir"] { border-left-color: var(--success); }
+.editor-callout[data-kind="exemple"] { border-left-color: var(--border); }
+.editor-callout select { flex-shrink: 0; border-radius: 0.25rem; background: transparent; font-weight: 600; font-size: 0.9em; }
+
+/* Grille à trois zones (lecture, écriture, actualités, /corriger) : la colonne de texte est centrée et ne bouge jamais ;
+   ce qui l'accompagne (sommaire, notes) vit dans la colonne de droite, sans jamais la décaler. */
+.doc-shell { container-type: inline-size; }
+/* Panneau des notes rangé à droite (≥ 1280 px) : le cours se décale vers la gauche, rien n'est recouvert ni flouté */
+@media (min-width: 1280px) { html[data-notes-docked] .doc-shell { padding-right: 23rem; } }
+.doc-grid { display: grid; column-gap: 2.5rem; grid-template-columns: [gl] minmax(0, 1fr) [text] min(var(--measure), 100%) [gr] minmax(0, 1fr); }
+.doc-main { grid-column: text; min-width: 0; }
+.doc-aside { grid-column: gr; justify-self: start; width: 100%; min-width: 0; position: relative; }
+@container (max-width: 79rem) { .doc-grid { column-gap: 1.5rem; } }
+/* Avec la colonne des notes (dès 73rem), le texte s'élargit vers la gauche au lieu de rester étroit au centre */
+/* Notes en marge dès 48rem : sous 73rem, une colonne de 14rem (+ le rail du sommaire), le texte garde sa mesure ou rétrécit */
+@container (min-width: 48rem) and (max-width: 72.99rem) { .doc-shell[data-notes] .doc-grid { grid-template-columns: [gl] minmax(0, 1fr) [text] minmax(0, var(--measure)) [gr] minmax(15.75rem, 1fr); } }
+@container (min-width: 73rem) { .doc-shell[data-notes] .doc-grid { grid-template-columns: [gl] minmax(0, 1fr) [text] minmax(0, calc(var(--measure) + 12rem)) [gr] minmax(17.5rem, 1fr); } }
+@container (min-width: 103rem) { .doc-shell[data-notes] .doc-grid { grid-template-columns: [gl] minmax(0, 1fr) [text] minmax(0, calc(var(--measure) + 12rem)) [gr] minmax(31rem, 1fr); } }
+/* Sous 48rem la colonne prend toute la largeur ; une gouttière de 1,5rem à droite accueille les pastilles de notes */
+@container (max-width: 47.99rem) {
+  .doc-grid { grid-template-columns: [text] minmax(0, 1fr); column-gap: 0; }
+  /* Gouttière des pastilles : 12 px après le texte, 24 px avant le bord de l'écran */
+  .doc-grid[data-gutter] { grid-template-columns: [text] minmax(0, 1fr) [gr] 2.25rem; column-gap: 0.25rem; }
+  /* Le bandeau « Reprendre » couvre aussi la gouttière : mêmes marges à gauche et à droite */
+  .doc-grid[data-gutter] :is(.resume-offer, .span-gutter) { margin-right: -2.5rem; width: calc(100% + 2.5rem) !important; max-width: none; }
+  .doc-aside { display: none; }
+}
+
+/* Sommaire : liste collante, rail à tirets, panneau superposé */
+.doc-toc { position: sticky; top: calc(var(--sticky-top, 7rem) + 0.5rem); max-height: calc(100dvh - var(--sticky-top, 7rem) - 2rem); }
+.doc-toc[data-mode="list"] { width: 14rem; }
+.doc-toc[data-mode="list"][data-after-notes] { width: 13rem; margin-left: calc(16rem + 1.5rem); }
+.doc-toc[data-mode="rail"] { position: sticky; width: fit-content; margin-left: auto; }
+.doc-aside:has(> .doc-toc[data-mode="rail"]) { justify-self: end; width: auto; }
+.doc-toc-swap { transform-origin: right center; }
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.reduce-motion) .doc-toc-swap { animation: toc-swap var(--dur-base) var(--ease-in-out) both; }
+}
+@keyframes toc-swap { from { opacity: 0; transform: scaleX(calc(1 - 0.08 * var(--motion))); } }
+/* Le filet est une ombre intérieure : la marque du titre courant n'est plus rognée par le défilement de la liste */
+.doc-toc-list { display: grid; gap: 0.125rem; box-shadow: inset 1px 0 var(--border); font-size: 0.875rem; line-height: 1.35; overflow-y: auto; }
+.doc-toc-list a { display: block; padding: 0.3rem 0 0.3rem 0.75rem; border-left: 2px solid transparent; color: var(--muted-foreground); transition: color var(--dur-fast), border-color var(--dur-fast); }
+.doc-toc-list a[data-depth="3"] { padding-left: 1.5rem; font-size: 0.8125rem; }
+.doc-toc-list a:hover { color: var(--foreground); }
+.doc-toc-list a[data-current] { border-left-color: var(--primary); color: var(--foreground); font-weight: 600; }
+.doc-rail { display: grid; justify-items: end; gap: 0.5rem; padding: 0.5rem 0.25rem; border-radius: var(--radius-md); cursor: pointer; }
+.doc-rail span { display: block; height: 2px; width: 12px; border-radius: 2px; background: var(--border); transition: background-color var(--dur-fast), width var(--dur-fast); }
+.doc-rail span[data-depth="3"] { width: 8px; }
+.doc-rail span[data-current] { background: var(--primary); }
+.doc-rail:hover span:not([data-current]), .doc-rail:focus-visible span:not([data-current]) { background: var(--muted-foreground); }
+.doc-chip { display: inline-flex; align-items: center; min-height: 2.25rem; padding-inline: 0.625rem; border-radius: var(--radius); border: 1px solid var(--input); font-size: 0.875rem; }
+
+/* Barre d'actions du cours : collante sous l'en-tête, fine progression de lecture dessous */
+/* Collée, elle flotte à 0,5 rem sous l'en-tête au lieu de toucher son bord */
+.doc-actionbar { position: sticky; top: calc(3.5rem + 0.5rem + env(safe-area-inset-top)); z-index: var(--z-sticky, 20); }
+.doc-actionbar[data-stuck] { box-shadow: var(--shadow-sm); background: var(--background); backdrop-filter: none; }
+/* Collée : un fond opaque continu remonte de la barre jusque sous l'en-tête (marge de 0,5 rem comprise), pour que le texte
+   qui défile ne transparaisse ni au-dessus de la barre ni à travers l'en-tête vitré (qui passe devant : --z-header > --z-sticky). */
+.doc-actionbar[data-stuck]::before { content: ""; position: absolute; z-index: -1; inset-inline: 0; bottom: calc(100% - 0.75rem); height: calc(3.5rem + 1.25rem + env(safe-area-inset-top)); background: var(--background); pointer-events: none; }
+.read-progress { transform-origin: left; transform: scaleX(0); }
+@supports (animation-timeline: scroll()) {
+  .read-progress { animation: read-progress linear both; animation-timeline: scroll(root); }
+}
+@keyframes read-progress { to { transform: scaleX(1); } }
+
+/* Au téléphone, la barre d'actions du cours flotte au-dessus des onglets ; le texte garde de quoi défiler sous elle */
+@media (max-width: 767.98px) {
+  body:has(.reading-bar) main#contenu { padding-bottom: 6rem; }
+}
+/* Téléphone : en descendant, la barre se rétracte vers la droite en un bouton rond qui la rouvre ; en remontant, elle se déploie */
+.reading-bar { transform-origin: right center; transition: scale var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out); }
+.reading-bar[data-hidden] { opacity: 0; pointer-events: none; }
+.reading-bar-fab { transition: scale var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out); }
+.reading-bar-fab:not([data-shown]) { opacity: 0; pointer-events: none; scale: 0.6; }
+/* Pendant l'écoute, au téléphone, le lecteur prend la place de la barre d'actions (jamais trois couches) */
+@media (max-width: 767px) { body:has([data-podcast-open]) :is(.reading-bar, .reading-bar-fab) { display: none; } }
+@media (prefers-reduced-motion: no-preference) { html:not(.reduce-motion) .reading-bar[data-hidden] { scale: 0.15 1; } }
+@media (prefers-reduced-motion: reduce) { .reading-bar-fab:not([data-shown]) { scale: 1; } }
+html.reduce-motion .reading-bar-fab:not([data-shown]) { scale: 1; }
+
+/* Tableaux du cours : ils défilent dans leur cadre */
+.course .table-scroll { overflow-x: auto; max-width: 100%; }
+
+/* Annotations : une couche sur le texte */
+.ann-hl-yellow { background: #fde68a; color: #1f1619; } .ann-hl-green { background: #bbf7d0; color: #1f1619; } .ann-hl-blue { background: #bfdbfe; color: #1f1619; } .ann-hl-pink { background: #fbcfe8; color: #1f1619; } .ann-hl-orange { background: #fed7aa; color: #1f1619; }
+.ann-hl-yellow, .ann-hl-green, .ann-hl-blue, .ann-hl-pink, .ann-hl-orange { border-radius: 0.15em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.ann-bold { font-weight: 600; }
+.ann-italic { font-style: italic; }
+.ann-underline { text-decoration: underline; text-underline-offset: 2px; }
+.ann-strike { text-decoration: line-through; }
+.ann-underline.ann-strike { text-decoration: underline line-through; }
+.ann-draft { background: color-mix(in oklab, var(--primary) 16%, transparent); border-radius: 0.15em; }
+.ann-note { cursor: pointer; }
+/* Une teinte par-dessus le fond et non à sa place : un passage surligné garde sa couleur et reste lisible */
+.ann-active { background-image: linear-gradient(color-mix(in oklab, var(--primary) 16%, transparent), color-mix(in oklab, var(--primary) 16%, transparent)); border-radius: 0.15em; box-decoration-break: clone; -webkit-box-decoration-break: clone; box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 35%, transparent); }
+.ann-glow { animation: ann-glow 1400ms ease-out; }
+@keyframes ann-glow {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 0%, transparent); }
+  18% { box-shadow: 0 0 18px 4px color-mix(in oklab, var(--primary) 70%, transparent); }
+  100% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 35%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .ann-glow { animation: none; } }
+.ann-sheet { position: fixed; inset-inline: 0.75rem; bottom: calc(4.5rem + env(safe-area-inset-bottom)); z-index: 40; max-height: 45vh; overflow-y: auto; border-radius: 0.75rem; box-shadow: var(--shadow-xl, 0 12px 32px rgb(0 0 0 / 0.25)); }
+@media (min-width: 768px) { .ann-sheet { bottom: 1rem; inset-inline: auto 1rem; width: 22rem; } }
+
+/* Écrire comme on lit : l'éditeur reprend exactement la typographie de .course */
+.doc-edit-actions { position: fixed; inset-inline: 0; bottom: calc(3.5rem + env(safe-area-inset-bottom)); z-index: 25; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-top: 1px solid var(--border); background: var(--background); }
+@media (min-width: 768px) { .doc-edit-actions { position: static; flex-shrink: 0; padding: 0; border: 0; background: none; } .doc-edit-actions.md\:hidden { display: none; } }
+.doc-field { display: inline-flex; align-items: center; gap: 0.25rem; max-width: 100%; min-height: 1.875rem; padding-inline: 0.5rem; border-radius: var(--radius); border: 1px solid transparent; background: var(--muted); color: var(--foreground); font-size: 0.875rem; transition: background-color 120ms, border-color 120ms; }
+.doc-field:hover, .doc-field:focus-within { border-color: var(--input); }
+.doc-field[data-empty] { border: 1px dashed var(--input); background: transparent; color: var(--muted-foreground); }
+.doc-field[data-missing] { border: 1px solid var(--destructive); color: var(--destructive); }
+.doc-field select { appearance: none; field-sizing: content; max-width: 100%; min-width: 0; background: transparent; outline: none; cursor: pointer; text-overflow: ellipsis; }
+.doc-field select option { color: var(--popover-foreground); background: var(--popover); }
+.doc-field[data-suggested] { border-color: color-mix(in oklab, var(--primary) 30%, transparent); background: var(--brand-tint); }
+.doc-title { display: block; padding: 0; border: 0; }
+.doc-title[data-suggested] { border-radius: var(--radius); background: var(--brand-tint); }
+.doc-title[data-missing]::placeholder { color: var(--destructive); }
+.doc-editor .bn-editor { min-height: 18rem; padding: 0 0 2rem; background: transparent; color: var(--foreground); }
+.doc-editor .bn-block-content { padding-block: 0.45em; }
+.doc-editor .bn-block-content[data-content-type="bulletListItem"], .doc-editor .bn-block-content[data-content-type="numberedListItem"], .doc-editor .bn-block-content[data-content-type="checkListItem"] { padding-block: 0.125em; }
+.doc-editor [data-content-type="heading"] { font-family: var(--font-heading); }
+.doc-editor [data-content-type="heading"][data-level="1"], .doc-editor [data-content-type="heading"][data-level="2"] { --level: 1.5rem; padding-top: 1.6em; line-height: 1.25; font-weight: 600; }
+.doc-editor [data-content-type="heading"][data-level="3"] { --level: 1.2rem; padding-top: 1.2em; line-height: 1.3; font-weight: 600; }
+.doc-editor .bn-block-group > .bn-block-outer:first-child [data-content-type="heading"] { padding-top: 0; }
+.doc-editor .bn-editor table { width: auto; max-width: 100%; font-size: 0.95em; border-collapse: collapse; }
+.doc-editor .bn-editor :is(th, td) { border: 1px solid var(--border) !important; padding: 0.4em 0.7em !important; text-align: left; }
+.doc-editor .bn-editor th { background: var(--muted) !important; font-weight: 600; }
+.doc-editor .bn-editor .tableWrapper { padding: 0 !important; margin: 0 !important; }
+@media (max-width: 767px) { .doc-editor .bn-editor { padding-bottom: 5rem; } }
+
+/* Relecture : l'étiquette disparaît tant que la barre de décision est vide */
+.review-wrap:has(> .review-slot:empty) { display: none; }
+
+/* Impression du cours : ni navigation ni boutons ; les notes numérotées en bas si demandé */
+@media print {
+  @page { margin: 20mm 18mm 22mm; }
+  /* Fond blanc sur toute la page : aucun conteneur (fond crème, coquille, carte) ne dessine de rectangle gris */
+  :root, html, html[class] { --paper: #fff !important; --background: #fff !important; --card: #fff !important; background: #fff !important; }
+  body, main, #contenu, [data-slot=sidebar-wrapper], [data-slot=sidebar-inset], .doc-shell, .doc-grid, .doc-main, article.course, [data-reading] { background: #fff !important; box-shadow: none !important; }
+  body { color: #000 !important; }
+  [data-slot=sidebar], [data-slot=sidebar-gap], header[style*="app-header"], nav[aria-label="Navigation principale"], [data-reading-bar], .doc-aside, .ann-rail, [data-note-dot], footer, [data-sonner-toaster], .doc-actionbar { display: none !important; }
+  main { padding: 0 !important; max-width: none !important; }
+  .doc-grid { display: block !important; }
+  .course { font-size: 11.5pt; line-height: 1.55; }
+  .course a { color: inherit; }
+  html:not(.print-notes) .ann { background: none !important; font-weight: inherit !important; font-style: inherit !important; text-decoration: none !important; }
+  html.print-notes .ann[data-n]::after { content: " [" attr(data-n) "]"; font-size: 0.75em; vertical-align: super; }
+  html.print-notes .print-notes-list { display: block !important; margin-top: 2em; padding-top: 1em; border-top: 1px solid #999; font-size: 10pt; }
+  html.print-notes .print-notes-list li + li { margin-top: 0.4em; }
+  .print-footer { display: block !important; position: fixed; bottom: 0; left: 0; right: 0; text-align: center; font-size: 8pt; color: #555; }
+
+  /* PDF officiel : la charte Campuss, jamais les réglages de lecture du compte (police, taille, espacement, thème, italique) */
+  :root {
+    --read-size: 11pt !important; --read-leading: 1.55 !important; --read-tracking: normal !important; --read-word: normal !important; --read-gap: 0.7em !important;
+    --font-read: "Source Sans 3" !important; --font-text: "Source Sans 3" !important; --logo-word: #a10e2f !important;
+    --foreground: #1f1619 !important; --muted: #f4f1f2 !important; --border: #ddd6d8 !important; --link: #a10e2f !important;
+  }
+  html { font-size: 16px !important; }
+  body { font-family: "Source Sans 3", sans-serif; letter-spacing: normal !important; word-spacing: normal !important; }
+  .course { color: #1f1619; text-align: left; hyphens: auto; orphans: 3; widows: 3; }
+  .course :is(em, i) { font-style: italic !important; font-weight: inherit !important; }
+  .course :is(h2, h3) { font-family: "Massilia", "Source Sans 3", sans-serif; font-weight: 600; color: #a10e2f; break-after: avoid; page-break-after: avoid; }
+  .course h2 { font-size: 15pt; margin-top: 1.6em; padding-bottom: 0.25em; border-bottom: 0.5pt solid #e7c9d0; }
+  .course h3 { font-size: 12.5pt; margin-top: 1.3em; }
+  .course :is(blockquote, pre, table, img, figure, .katex-display, details) { break-inside: avoid; page-break-inside: avoid; }
+  .course blockquote { background: #faf6f7 !important; border-left-color: #a10e2f; }
+  .course details::details-content { height: auto !important; content-visibility: visible !important; }
+  .print-head { display: block !important; margin-bottom: 10mm; padding-bottom: 6mm; border-bottom: 1pt solid #a10e2f; }
+  .print-logo { display: block; height: 8mm; width: auto; margin-bottom: 7mm; }
+  .print-kicker { font: 600 9.5pt "Source Sans 3", sans-serif; color: #a10e2f; text-transform: uppercase; letter-spacing: 0.06em !important; }
+  .print-title { margin-top: 2mm; font: 600 22pt/1.2 "Massilia", "Source Sans 3", sans-serif; color: #1f1619; }
+  .print-byline { margin-top: 3mm; font-size: 10pt; color: #5c5357; }
+}
+
+/* Éditeur : une seule poignée, discrète, qui s'affirme au survol */
+.block-handle { opacity: 0.5; transition: opacity 120ms var(--ease-out), background-color var(--dur-instant); margin-right: 0.375rem; }
+.block-handle:hover, .block-handle:focus-visible, .block-handle[data-popup-open] { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) { html:not(.reduce-motion) .block-handle { animation: handle-in 120ms var(--ease-out); } }
+@keyframes handle-in { from { opacity: 0; } }
+.campuss-editor .prosemirror-dropcursor-block, .campuss-editor .prosemirror-dropcursor-inline { background-color: var(--primary) !important; height: 2px !important; }
+.doc-editor .bn-editor { padding-inline: 0 !important; }
+.doc-editor .bn-block-content[data-is-empty-and-focused] .bn-inline-content::before, .doc-editor .bn-inline-content.bn-placeholder::before { color: var(--muted-foreground); }
+.doc-field { min-height: 2rem; }
+.doc-field.ai-border { --ai-bg: var(--background); }
+/* Année fixée (étudiant) : affichée comme les autres choix, sans rien à ouvrir */
+.doc-field[data-locked] { cursor: default; color: var(--muted-foreground); }
+.doc-field[data-locked]:hover { border-color: transparent; }
+
+/* Blocs riches (artefact isolé, graphiques, figures) */
+.course-artifact :fullscreen { background: var(--background); }
+.course-artifact :fullscreen iframe { height: 100% !important; }
+.course-rich { margin-block: 1.5rem; display: grid; gap: .375rem; }
+.course-rich svg { max-width: 100%; height: auto; }
+.course-rich figcaption { font-size: .875rem; color: var(--muted-foreground); }
+.course-rich .rich-svg { display: flex; justify-content: center; overflow-x: auto; }
+@media print { .course-rich { break-inside: avoid; } }

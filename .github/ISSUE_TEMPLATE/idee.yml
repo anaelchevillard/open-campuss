@@ -1,0 +1,19 @@
+name: Idée
+description: Proposer une amélioration ou une nouvelle fonction
+labels: [idée]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Le besoin
+      description: Ce qui manque ou gêne aujourd'hui, et pour qui (étudiant, délégué, enseignant, administrateur)
+    validations: { required: true }
+  - type: textarea
+    id: proposal
+    attributes:
+      label: La proposition
+      description: Ce que vous imaginez ; une capture ou un croquis aide
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Autres pistes envisagées

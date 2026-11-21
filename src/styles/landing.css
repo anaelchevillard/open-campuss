@@ -1,0 +1,185 @@
+/* Page de présentation. Direction éditoriale : une page qui se lit comme un journal
+   d'étudiant, pas comme un gabarit de produit. Ce qui la porte : Massilia en très grand, le bordeaux de la marque en
+   aplat (jamais en dégradé ni en halo), de vraies captures, des filets et des colonnes décalées. Ce qui en est banni
+   (signaux de page générée) : lueurs, verre dépoli, texte en dégradé, pastilles qui flottent, étincelles, bandeau qui
+   défile, grilles de cartes à icônes identiques, chiffres qui comptent, inclinaisons au survol, bouton aimanté.
+   Thème : la page suit le thème de la page de bout en bout (réglages, sinon système), captures comprises (shot.tsx).
+   Mouvement : seulement ce qui explique (le téléphone qu'on tourne, le récit épinglé, la fiche qui se retourne) et
+   des apparitions brèves ; tout s'éteint en mouvement réduit (système ou réglage « Aa », voir isCalm()). */
+
+.lp-root {
+  --lp-wine: #a10e2f;
+  --lp-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --lp-rule: color-mix(in oklab, var(--foreground) 82%, transparent);
+  overflow-x: clip;
+}
+.lp-anchor, .lp-root section[id] { scroll-margin-top: 5rem; }
+.lp-root :focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+
+/* Lenis (équivalent de lenis.css, sans fichier tiers) */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* ---------- Typographie : Massilia en grand, Source Sans pour lire ---------- */
+.lp-h1 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(3rem, 9vw, 7.5rem); line-height: 0.9; letter-spacing: -0.045em; }
+.lp-h1 em { font-style: normal; color: var(--brand-text); }
+.lp-h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.25rem, 5.6vw, 4.75rem); line-height: 0.96; letter-spacing: -0.04em; }
+.lp-h3 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.1; letter-spacing: -0.02em; }
+.lp-lede { font-size: clamp(1.125rem, 1.6vw, 1.3rem); line-height: 1.55; max-width: 36rem; }
+.lp-kicker { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.01em; color: var(--brand-text); }
+.lp-muted { color: var(--muted-foreground); }
+
+/* Rubrique de section : numéro et titre courant sur un filet plein, comme en tête de page d'un journal */
+.lp-rubric { display: flex; align-items: baseline; gap: 1rem; padding-top: 0.75rem; border-top: 2px solid var(--lp-rule); font-size: 0.875rem; font-weight: 700; }
+.lp-rubric span:first-child { font-variant-numeric: tabular-nums; color: var(--brand-text); }
+
+/* ---------- Boutons ---------- */
+.lp-cta { background: var(--primary); color: var(--primary-foreground, #fff); }
+.lp-cta:hover { background: var(--primary-hover, var(--primary)); }
+.lp-ghost { display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 600; color: var(--foreground); text-decoration: underline; text-decoration-color: color-mix(in oklab, currentColor 35%, transparent); text-underline-offset: 6px; }
+.lp-ghost:hover { text-decoration-color: currentColor; }
+.lp-chip { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 1rem; border-radius: 999px; font-size: 0.9rem; font-weight: 600; color: var(--foreground); background: transparent; border: 1px solid var(--border); transition: background-color 0.2s, border-color 0.2s, color 0.2s, opacity 0.2s; }
+.lp-chip:hover:not(:disabled) { border-color: var(--foreground); }
+.lp-chip[aria-pressed="true"] { background: var(--foreground); border-color: var(--foreground); color: var(--background); }
+.lp-chip:disabled { opacity: 0.45; cursor: not-allowed; }
+.lp-chip[data-kind="good"]:not(:disabled) { border-color: color-mix(in oklab, var(--success) 60%, transparent); }
+.lp-chip[data-kind="again"]:not(:disabled) { border-color: color-mix(in oklab, var(--destructive) 60%, transparent); }
+
+/* ---------- Barre du haut : pleine largeur, au thème de la page, un filet une fois qu'on a défilé ---------- */
+.lp-bar { color: var(--foreground); background: var(--background); border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+.lp-bar-solid { border-bottom-color: var(--border); }
+.lp-bar-link { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.75rem; font-size: 0.925rem; font-weight: 600; color: var(--foreground); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 6px; transition: text-decoration-color 0.2s; }
+.lp-bar-link:hover { text-decoration-color: currentColor; }
+
+/* ---------- Téléphone dessiné (unités : largeur du cadre) ----------
+   Écran de 91,6 cqw (cadre moins 2 × 4,2 cqw) aux proportions de la capture, 393 × 852 : 198,6 cqw de haut, donc un
+   cadre de 207 cqw. Rien n'est recadré : barre d'état en haut, barre d'onglets et indicateur d'accueil en bas. */
+.lp-iphone { position: relative; container-type: inline-size; aspect-ratio: 100 / 207; }
+.lp-iphone-body { position: absolute; inset: 0; border-radius: 15.4cqw; padding: 4.2cqw; background: #050405; box-shadow: 0 0 0 1.1cqw #6b1a2c, 0 0 0 1.5cqw #2a0b13, inset 0 0 0 0.5cqw #1a1a1a, 0 9cqw 13cqw -4cqw rgb(0 0 0 / 0.28); }
+.lp-iphone-screen { position: relative; height: 100%; overflow: hidden; border-radius: 11.4cqw; background: var(--background, #fff); }
+.lp-iphone-view { position: absolute; inset: 0; overflow: hidden; }
+.lp-iphone-view > * { position: absolute; inset: 0; }
+.lp-iphone-view picture, .lp-iphone-view img { height: 100%; }
+/* Île : 126 × 37 points, à 11 points du haut */
+.lp-iphone-island { position: absolute; z-index: 2; top: 2.56cqw; left: 50%; width: 29.4cqw; height: 8.6cqw; translate: -50% 0; border-radius: 999px; background: #000; }
+.lp-iphone-key { position: absolute; z-index: -1; width: 1.6cqw; border-radius: 0.8cqw; background: #5a1626; }
+.lp-iphone-key[data-key="action"] { left: -1.7cqw; top: 18%; height: 4.5%; }
+.lp-iphone-key[data-key="up"] { left: -1.7cqw; top: 26%; height: 7.5%; }
+.lp-iphone-key[data-key="down"] { left: -1.7cqw; top: 35%; height: 7.5%; }
+.lp-iphone-key[data-key="power"] { right: -1.7cqw; top: 28%; height: 11.5%; }
+
+/* Tablette en portrait */
+.lp-tablet { container-type: inline-size; }
+.lp-tablet-body { position: relative; border-radius: 5.2cqw; padding: 3.6cqw; background: #070607; box-shadow: 0 0 0 0.7cqw #3b1520, inset 0 0 0 0.4cqw #1c1c1c, 0 24px 40px -24px rgb(0 0 0 / 0.35); }
+.lp-tablet-cam { position: absolute; top: 1.5cqw; left: 50%; width: 1.1cqw; height: 1.1cqw; translate: -50% 0; border-radius: 50%; background: #1d2230; box-shadow: inset 0 0 0 0.25cqw #0b0d14; }
+.lp-tablet-screen { overflow: hidden; border-radius: 2cqw; }
+
+/* Fenêtre Safari de macOS : barre de 52 px pour une fenêtre de 1280 px, proportionnelle */
+.lp-safari { container-type: inline-size; overflow: hidden; border-radius: max(10px, 0.95cqw); background: #fff; border: 1px solid rgb(0 0 0 / 0.14); box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.35); --bar: #f6f4f4; --bar-line: #dcd8d9; --field: #e9e6e7; --glyph: #6e6a6b; --url: #2c2829; }
+.lp-safari-bar { display: flex; align-items: center; gap: 1.25cqw; height: max(30px, 4.06cqw); padding: 0 1.4cqw; background: var(--bar); border-bottom: 1px solid var(--bar-line); color: var(--glyph); }
+.lp-safari-lights { display: flex; gap: 0.62cqw; margin-right: 1cqw; }
+.lp-safari-lights i { width: max(7px, 0.94cqw); height: max(7px, 0.94cqw); border-radius: 50%; background: #ff5f57; box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.12); }
+.lp-safari-lights i:nth-child(2) { background: #febc2e; }
+.lp-safari-lights i:nth-child(3) { background: #28c840; }
+.lp-safari-tool { width: max(10px, 1.45cqw); height: max(10px, 1.45cqw); flex: none; }
+.lp-safari-url { display: flex; align-items: center; justify-content: center; gap: 0.45cqw; width: 38%; height: 64%; margin: 0 auto; border-radius: max(6px, 0.6cqw); background: var(--field); color: var(--url); font-size: max(8px, 1.02cqw); font-weight: 500; }
+.lp-safari-url svg { width: max(7px, 0.9cqw); height: max(7px, 0.9cqw); color: var(--glyph); }
+.lp-safari-view { line-height: 0; }
+@media (prefers-color-scheme: dark) { html:not(.light) .lp-safari { background: #1e1b1c; border-color: rgb(255 255 255 / 0.12); --bar: #2c292a; --bar-line: #191718; --field: #3b3738; --glyph: #a6a0a2; --url: #ece8e9; } }
+html.dark .lp-safari { background: #1e1b1c; border-color: rgb(255 255 255 / 0.12); --bar: #2c292a; --bar-line: #191718; --field: #3b3738; --glyph: #a6a0a2; --url: #ece8e9; }
+
+/* ---------- Héros : texte à gauche, téléphone 3D à droite, sans décor autour ---------- */
+.lp-phone-canvas { opacity: 0; transition: opacity 0.6s var(--lp-ease); touch-action: pan-y; cursor: grab; }
+.lp-phone-canvas[data-dragging] { cursor: grabbing; }
+.lp-phone-stage[data-ready] .lp-phone-canvas { opacity: 1; }
+.lp-phone-stage[data-ready] .lp-phone-fallback { opacity: 0; transition: opacity 0.6s var(--lp-ease); pointer-events: none; }
+.lp-phone-stage:not([data-ready]) .lp-phone-canvas { pointer-events: none; }
+.lp-hint { color: var(--muted-foreground); }
+
+/* ---------- Récit épinglé : la semaine ---------- */
+@media (min-width: 1024px) and (min-height: 640px) {
+  .lp-story-track { display: block; height: calc(var(--steps) * 70svh + 30svh); }
+  .lp-story-stack { display: none; }
+}
+.lp-story-pin { position: sticky; top: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 20rem); align-items: center; gap: 6rem; height: 100svh; padding: 5rem 0 2rem; }
+.lp-story-steps { display: grid; }
+.lp-story-steps li { position: relative; border-top: 1px solid var(--border); }
+.lp-story-steps li:last-child { border-bottom: 1px solid var(--border); }
+.lp-story-fill { position: absolute; left: 0; right: 0; top: -1px; height: 2px; transform-origin: 0 50%; background: var(--brand-text); }
+.lp-story-step { display: grid; grid-template-columns: 9rem minmax(0, 1fr); column-gap: 1.5rem; width: 100%; padding: 1rem 0; text-align: left; opacity: 0.45; transition: opacity 0.3s var(--lp-ease); }
+.lp-story-step .lp-kicker { padding-top: 0.45rem; }
+.lp-story-steps li[data-active] .lp-story-step, .lp-story-step:hover, .lp-story-step:focus-visible { opacity: 1; }
+.lp-story-title { font-family: var(--font-heading); font-size: clamp(1.4rem, 2vw, 1.85rem); font-weight: 700; line-height: 1.08; letter-spacing: -0.025em; }
+.lp-story-text { grid-column: 2; display: grid; grid-template-rows: 0fr; overflow: hidden; color: var(--muted-foreground); transition: grid-template-rows 0.4s var(--lp-ease); max-width: 44ch; }
+.lp-story-text > span { min-height: 0; padding-top: 0.5rem; }
+.lp-story-steps li[data-active] .lp-story-text { grid-template-rows: 1fr; }
+.lp-story-device { position: relative; height: min(40rem, calc(100svh - 8rem)); aspect-ratio: 100 / 207; justify-self: center; }
+.lp-story-device .lp-iphone { height: 100%; width: auto; }
+.lp-story-screen { position: absolute; inset: 0; transition: opacity 0.35s var(--lp-ease); }
+.lp-story-screen[data-state="next"], .lp-story-screen[data-state="past"] { opacity: 0; }
+
+/* ---------- Ce que Campuss n'est pas : définitions sur filets ---------- */
+.lp-not { display: grid; }
+.lp-not > div { display: grid; gap: 0.5rem 2rem; padding: 1.5rem 0; border-top: 1px solid var(--border); }
+.lp-not > div:last-child { border-bottom: 1px solid var(--border); }
+@media (min-width: 768px) { .lp-not > div { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } }
+.lp-not dt { font-family: var(--font-heading); font-size: clamp(1.35rem, 2.4vw, 2rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.025em; }
+.lp-not dd { color: var(--muted-foreground); max-width: 52ch; }
+
+/* Étapes du partage : grands numéros, filets */
+.lp-steps { counter-reset: step; display: grid; gap: 0 2.5rem; }
+@media (min-width: 768px) { .lp-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.lp-steps li { counter-increment: step; padding: 1.25rem 0 1.5rem; border-top: 2px solid var(--lp-rule); }
+.lp-steps li::before { content: counter(step); display: block; margin-bottom: 1rem; font-family: var(--font-heading); font-size: 3.5rem; font-weight: 700; line-height: 1; letter-spacing: -0.04em; color: var(--brand-text); }
+
+/* Chiffres réels, en Massilia */
+.lp-number { font-family: var(--font-heading); font-size: clamp(2.75rem, 6vw, 4.5rem); font-weight: 700; line-height: 1; letter-spacing: -0.04em; color: var(--brand-text); font-variant-numeric: tabular-nums; }
+
+/* Appel final : l'aplat bordeaux de la marque, identique en clair et en sombre (texte blanc, 8:1) */
+.lp-final { --foreground: #fff; --muted-foreground: rgb(255 255 255 / 0.85); --ring: #fff; background: var(--lp-wine); color: #fff; }
+.lp-final .lp-cta { background: #fff; color: var(--lp-wine); }
+.lp-final .lp-cta:hover { background: #fbeef1; }
+
+/* Captures partielles, sur un filet fin */
+.lp-crop { overflow: hidden; border-radius: 0.75rem; border: 1px solid var(--border); }
+
+/* ---------- Paquet de fiches ---------- */
+.lp-deck { max-width: 26rem; margin-inline: auto; }
+.lp-deck-pile { position: relative; height: 18rem; }
+.lp-deck-card { position: absolute; inset: 0; touch-action: pan-y; }
+.lp-deck-face { display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; padding: 1.5rem; border-radius: 1rem; background: var(--card); border: 1px solid var(--border); box-shadow: 0 24px 40px -30px rgb(0 0 0 / 0.45); }
+.lp-deck-back { background: var(--lp-wine); color: #fff; border-color: transparent; }
+.lp-deck-back .lp-kicker { color: #ffd5de; }
+.lp-deck-q { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.015em; }
+.lp-deck-stamp { position: absolute; top: 1.25rem; padding: 0.3rem 0.8rem; border-radius: 0.5rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border: 2px solid; pointer-events: none; }
+.lp-deck-stamp[data-kind="good"] { right: 1.25rem; color: var(--success); rotate: 8deg; }
+.lp-deck-stamp[data-kind="again"] { left: 1.25rem; color: var(--destructive); rotate: -8deg; }
+.lp-deck-end { display: grid; place-content: center; justify-items: center; height: 100%; text-align: center; border-radius: 1rem; border: 1px dashed var(--border); }
+
+/* Fiche qui se retourne */
+.lp-flip { perspective: 1200px; }
+.lp-flip-inner { transition: transform 0.5s var(--lp-ease); transform-style: preserve-3d; }
+.lp-flip-face { backface-visibility: hidden; }
+.lp-flip-back { transform: rotateY(180deg); }
+.lp-flip[data-flipped] .lp-flip-inner { transform: rotateY(180deg); }
+
+/* Changement d'onglet */
+.lp-fade { animation: fade 200ms cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* ---------- Mouvement (jamais en mouvement réduit) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Aucune animation en boucle ni d'entrée en CSS : la page ne bouge que quand on la fait bouger (seul le téléphone
+     3D se balance au repos, phone-3d.ts). Toute animation lp-* ajoutée ici doit exclure html.reduce-motion. */
+}
+
+/* Apparitions : cachées seulement quand landing-fx a démarré (data-fx), donc jamais sans JavaScript ; brèves */
+.lp-root[data-fx] .lp-reveal { transition: opacity 0.6s var(--lp-ease), translate 0.7s var(--lp-ease); transition-delay: calc(var(--i, 0) * 70ms); }
+.lp-root[data-fx] .lp-reveal:not([data-shown]) { opacity: 0; translate: 0 16px; }
+
+/* Mouvement réduit : rien ne bouge, tout reste lisible */
+@media (prefers-reduced-motion: reduce) {
+  .lp-flip-inner, .lp-story-screen, .lp-story-text { transition: none; }
+}
+html.reduce-motion :is(.lp-flip-inner, .lp-story-screen, .lp-story-text) { transition: none; }

@@ -1,0 +1,1 @@
+ALTER TABLE "exams" ADD COLUMN "kind" varchar(8) DEFAULT 'partiel' NOT NULL;

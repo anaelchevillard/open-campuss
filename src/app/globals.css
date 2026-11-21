@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@source "../../node_modules/@blocknote/shadcn";
+
+@import "../styles/tokens.css";
+@import "../styles/base.css";
+@import "../styles/motion.css";
+@import "../styles/ai.css";
+@import "../styles/course.css";
+@import "../styles/reading-prefs.css";
+@import "../styles/name-fonts.css";
+@import "../styles/reviser.css";
+@import "../styles/contribution.css";
+@import "../styles/admin.css";

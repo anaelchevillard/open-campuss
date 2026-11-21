@@ -1,0 +1,17 @@
+/* Mes documents, file « À valider », relecture */
+
+/* Barres du graphique des lecteurs : elles montent depuis la base. Avec --motion: 0, simple fondu. */
+@keyframes grow { from { opacity: 0; transform: scaleY(calc(1 - var(--motion))); } }
+
+/* Diff d'une correction : ajouts surlignés en succès 15 %, retraits barrés, toujours avec un mot pour les lecteurs d'écran */
+.diff-add { background: color-mix(in oklab, var(--success) 15%, transparent); color: inherit; text-decoration: none; border-radius: var(--radius-sm); box-decoration-break: clone; -webkit-box-decoration-break: clone; padding-inline: 0.1em; }
+.diff-del { color: var(--muted-foreground); text-decoration: line-through; text-decoration-color: color-mix(in oklab, var(--destructive) 70%, transparent); text-decoration-thickness: 1.5px; }
+.diff-block-add { box-shadow: inset 3px 0 0 var(--success); padding-inline-start: 0.75rem; }
+.diff-block-del { box-shadow: inset 3px 0 0 color-mix(in oklab, var(--destructive) 60%, transparent); padding-inline-start: 0.75rem; }
+@media (forced-colors: active) {
+  .diff-add { outline: 1px solid CanvasText; }
+}
+
+/* Élément suivant de la file : il glisse en place (160 ms) */
+@keyframes queue-in { from { opacity: 0; transform: translateX(calc(16px * var(--motion))); } }
+.queue-in { animation: queue-in 160ms var(--ease-out) both; }

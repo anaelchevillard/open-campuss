@@ -1,0 +1,23 @@
+# Banc d'essai jetable : mailpit à la place du vrai SMTP.
+services:
+  web:
+    environment:
+      # Sur le banc, les mails non urgents partent sans attendre la fenêtre de 10 minutes
+      MAIL_BATCH_SECONDS: "0"
+      # Domaines étudiants fictifs du banc
+      AUTO_APPROVE_DOMAINS: "etu.exemple.fr,etu.exemple.org"
+      NAMED_EMAIL_DOMAINS: "etu.exemple.fr"
+  mailpit:
+    image: axllent/mailpit:v1.27
+    networks: [default]
+    ports: ["127.0.0.1:8025:8025"]
+  fake-ai:
+    image: node:22-alpine
+    command: ["node", "/fake-ai.mjs"]
+    volumes: ["./tests/fake-ai.mjs:/fake-ai.mjs:ro"]
+    networks: [default]
+  fake-clamd:
+    image: node:22-alpine
+    command: ["node", "/fake-clamd.mjs"]
+    volumes: ["./tests/fake-clamd.mjs:/fake-clamd.mjs:ro"]
+    networks: [default, backend]

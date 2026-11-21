@@ -1,0 +1,235 @@
+/* Tokens de la charte (DESIGN.md §2). Aucune couleur en dur dans un composant : tout passe par ces variables. */
+
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) { html:not(.light) & { @slot; } }
+  html.dark & { @slot; }
+}
+@custom-variant hover-ok { @media (hover: hover) and (pointer: fine) { &:hover { @slot; } } }
+@custom-variant coarse { @media (pointer: coarse) { @slot; } }
+@custom-variant fine { @media (pointer: fine) { @slot; } }
+@custom-variant motion-ok { @media (prefers-reduced-motion: no-preference) { html:not(.reduce-motion) & { @slot; } } }
+
+@utility pb-safe { padding-bottom: max(0.5rem, env(safe-area-inset-bottom)); }
+@utility pt-safe { padding-top: env(safe-area-inset-top); }
+@utility px-safe { padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+/* Tout ce qui est fixé en bas se pose au-dessus de la barre d'onglets */
+@utility bottom-safe { bottom: calc(var(--bottom-offset) + 0.5rem); }
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-text), "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, Menlo, Consolas, monospace;
+  --font-heading: "Massilia", ui-sans-serif, system-ui, sans-serif;
+  --font-reading: var(--font-read), "Source Sans 3", ui-sans-serif, sans-serif;
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-dialog: var(--dialog);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand-tint: var(--brand-tint);
+  --color-brand-text: var(--brand-text);
+  --color-link: var(--link);
+  --color-paper: var(--paper);
+  --color-highlighter: var(--highlighter);
+  --color-highlighter-ink: var(--highlighter-ink);
+  --color-invert: var(--invert);
+  --color-invert-foreground: var(--invert-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-tint: var(--success-tint);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-tint: var(--warning-tint);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-tint: var(--destructive-tint);
+  --color-danger-solid: var(--danger-solid);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-tint: var(--info-tint);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 16px;
+  --radius-4xl: 16px;
+
+  --shadow-xs: var(--elev-1);
+  --shadow-sm: var(--elev-2);
+  --shadow-md: var(--elev-3);
+  --shadow-lg: var(--elev-4);
+  --shadow-xl: var(--elev-4);
+
+}
+
+/* Échelles de couleur : émises comme variables (charte, démonstration) */
+@theme static {
+  --color-brand-50: #fdf2f4; --color-brand-100: #fbe5ea; --color-brand-200: #f6c7d1; --color-brand-300: #ee9aac;
+  --color-brand-400: #e2627f; --color-brand-500: #cc2f52; --color-brand-600: #a10e2f; --color-brand-700: #870a26;
+  --color-brand-800: #6e0a20; --color-brand-900: #570b1c; --color-brand-950: #33060f;
+  --color-gray-0: #ffffff; --color-gray-25: #fbfafa; --color-gray-50: #f6f4f4; --color-gray-100: #f3f0f1;
+  --color-gray-150: #ebe7e8; --color-gray-200: #e7e2e4; --color-gray-300: #d5ced1; --color-gray-400: #a99fa3;
+  --color-gray-500: #8c8286; --color-gray-600: #6c6266; --color-gray-700: #4f464a; --color-gray-800: #322c2f;
+  --color-gray-850: #262123; --color-gray-900: #1e1a1c; --color-gray-950: #151213; --color-gray-975: #110e0f;
+}
+
+/* Courbes et animations : émises telles quelles pour servir aussi au CSS écrit à la main */
+@theme static {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-rise: rise var(--dur-slow) var(--ease-out) both;
+  --animate-pop: pop var(--dur-reward) var(--ease-back) both;
+  --animate-fade: fade var(--dur-base) var(--ease-out) both;
+}
+
+:root {
+  color-scheme: light dark;
+  --radius: 0.5rem;
+  --dur-instant: 100ms; --dur-fast: 150ms; --dur-base: 200ms; --dur-slow: 300ms; --dur-reward: 450ms;
+  --motion: 1;
+  --measure: 36rem;
+  --z-sticky: 20; --z-header: 30; --z-tabbar: 40; --z-overlay: 50; --z-toast: 60; --z-progress: 70;
+  --tabbar-h: 3.5rem;
+  --bottom-offset: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+
+  --background: #fbfafa;
+  --foreground: #1f1619;
+  --card: #ffffff;
+  --card-foreground: #1f1619;
+  --popover: #ffffff;
+  --popover-foreground: #1f1619;
+  --dialog: #ffffff;
+  --primary: #a10e2f;
+  --primary-hover: #870a26;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f0f1;
+  --secondary-foreground: #1f1619;
+  --muted: #f3f0f1;
+  --muted-foreground: #6c6266;
+  --accent: #f3f0f1;
+  --accent-foreground: #1f1619;
+  --border: #e7e2e4;
+  --input: #948a8e;
+  --ring: #a10e2f;
+  --brand-tint: #fbeef1;
+  --brand-text: #8a0c29;
+  --link: #a10e2f;
+  --logo-word: #a10e2f;
+  --sidebar: #f6f4f4;
+  --sidebar-foreground: #3f3438;
+  --sidebar-primary: #a10e2f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ebe7e8;
+  --sidebar-accent-foreground: #1f1619;
+  --sidebar-border: #e7e2e4;
+  --sidebar-ring: #a10e2f;
+  --paper: #ffffff;
+  --highlighter: #fde68a;
+  --highlighter-ink: #1f1619;
+  --invert: #1f1619;
+  --invert-foreground: #fbfafa;
+
+  --success: #15803d; --success-foreground: #166534; --success-tint: #f0fdf4;
+  --warning: #b45309; --warning-foreground: #92400e; --warning-tint: #fffbeb;
+  --destructive: #dc2626; --destructive-foreground: #991b1b; --destructive-tint: #fef2f2;
+  --info: #2563eb; --info-foreground: #1d4ed8; --info-tint: #eff6ff;
+  --danger-solid: #dc2626;
+
+  --chart-1: #a10e2f; --chart-2: #2563eb; --chart-3: #15803d; --chart-4: #b45309; --chart-5: #6c6266;
+
+  --elev-1: 0 0 0 1px var(--border), 0 1px 2px rgb(31 22 25 / .05);
+  --elev-2: 0 0 0 1px var(--border), 0 2px 4px -1px rgb(31 22 25 / .06), 0 4px 12px -2px rgb(31 22 25 / .08);
+  --elev-3: 0 0 0 1px rgb(31 22 25 / .06), 0 4px 6px -2px rgb(31 22 25 / .08), 0 12px 24px -6px rgb(31 22 25 / .14);
+  --elev-4: 0 0 0 1px rgb(31 22 25 / .06), 0 8px 16px -4px rgb(31 22 25 / .10), 0 24px 48px -12px rgb(31 22 25 / .28);
+}
+@media (min-width: 1024px) { :root { --bottom-offset: 0px; } }
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #151213; --foreground: #f4f1f2; --card: #1e1a1c; --card-foreground: #f4f1f2;
+    --popover: #262123; --popover-foreground: #f4f1f2; --dialog: #2c2629;
+    --primary: #b8153a; --primary-hover: #cc2f52; --primary-foreground: #ffffff;
+    --secondary: #2a2527; --secondary-foreground: #f4f1f2; --muted: #2a2527; --muted-foreground: #a99fa3;
+    --accent: #2a2527; --accent-foreground: #f4f1f2; --border: #322c2f; --input: #7a7074; --ring: #f08aa0;
+    --brand-tint: #331820; --brand-text: #f6a9b9; --link: #f08aa0; --logo-word: #f4f1f2;
+    --sidebar: #110e0f; --sidebar-foreground: #cfc7ca; --sidebar-primary: #b8153a; --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #241f21; --sidebar-accent-foreground: #f4f1f2; --sidebar-border: #292426; --sidebar-ring: #f08aa0;
+    --paper: #1e1a1c; --highlighter: #7a6410; --highlighter-ink: #fff8dc; --invert: #f4f1f2; --invert-foreground: #151213;
+    --success: #4ade80; --success-foreground: #86efac; --success-tint: #0f2a1a;
+    --warning: #fbbf24; --warning-foreground: #fde68a; --warning-tint: #2b2010;
+    --destructive: #f87171; --destructive-foreground: #fca5a5; --destructive-tint: #2e1414;
+    --info: #60a5fa; --info-foreground: #bfdbfe; --info-tint: #0f1d33;
+    --chart-1: #f08aa0; --chart-2: #93c5fd; --chart-3: #86efac; --chart-4: #fcd34d; --chart-5: #a99fa3;
+    --elev-1: 0 0 0 1px var(--border);
+    --elev-2: 0 0 0 1px var(--border), inset 0 1px 0 rgb(255 255 255 / .04);
+    --elev-3: 0 0 0 1px rgb(255 255 255 / .06), inset 0 1px 0 rgb(255 255 255 / .05), 0 12px 24px -6px rgb(0 0 0 / .5);
+    --elev-4: 0 0 0 1px rgb(255 255 255 / .07), inset 0 1px 0 rgb(255 255 255 / .06), 0 24px 48px -12px rgb(0 0 0 / .6);
+  }
+}
+:root.dark {
+  --background: #151213; --foreground: #f4f1f2; --card: #1e1a1c; --card-foreground: #f4f1f2;
+  --popover: #262123; --popover-foreground: #f4f1f2; --dialog: #2c2629;
+  --primary: #b8153a; --primary-hover: #cc2f52; --primary-foreground: #ffffff;
+  --secondary: #2a2527; --secondary-foreground: #f4f1f2; --muted: #2a2527; --muted-foreground: #a99fa3;
+  --accent: #2a2527; --accent-foreground: #f4f1f2; --border: #322c2f; --input: #7a7074; --ring: #f08aa0;
+  --brand-tint: #331820; --brand-text: #f6a9b9; --link: #f08aa0; --logo-word: #f4f1f2;
+  --sidebar: #110e0f; --sidebar-foreground: #cfc7ca; --sidebar-primary: #b8153a; --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #241f21; --sidebar-accent-foreground: #f4f1f2; --sidebar-border: #292426; --sidebar-ring: #f08aa0;
+  --paper: #1e1a1c; --highlighter: #7a6410; --highlighter-ink: #fff8dc; --invert: #f4f1f2; --invert-foreground: #151213;
+  --success: #4ade80; --success-foreground: #86efac; --success-tint: #0f2a1a;
+  --warning: #fbbf24; --warning-foreground: #fde68a; --warning-tint: #2b2010;
+  --destructive: #f87171; --destructive-foreground: #fca5a5; --destructive-tint: #2e1414;
+  --info: #60a5fa; --info-foreground: #bfdbfe; --info-tint: #0f1d33;
+  --chart-1: #f08aa0; --chart-2: #93c5fd; --chart-3: #86efac; --chart-4: #fcd34d; --chart-5: #a99fa3;
+  --elev-1: 0 0 0 1px var(--border);
+  --elev-2: 0 0 0 1px var(--border), inset 0 1px 0 rgb(255 255 255 / .04);
+  --elev-3: 0 0 0 1px rgb(255 255 255 / .06), inset 0 1px 0 rgb(255 255 255 / .05), 0 12px 24px -6px rgb(0 0 0 / .5);
+  --elev-4: 0 0 0 1px rgb(255 255 255 / .07), inset 0 1px 0 rgb(255 255 255 / .06), 0 24px 48px -12px rgb(0 0 0 / .6);
+}
+html.dark { color-scheme: dark; }
+html.light { color-scheme: light; }
+
+/* Taille du texte (panneau de lecture) : le texte des cours seulement, jamais l'interface */
+html.text-s { --read-size: 1rem; }
+html.text-l { --read-size: 1.25rem; }
+html.text-xl { --read-size: 1.375rem; }
+
+/* L'accent personnel ne s'applique pas en Administration (la barre latérale porte data-mode) */
+:root:root:has([data-mode="admin"]) { --brand-tint: #fbeef1; --brand-text: #8a0c29; }
+@media (prefers-color-scheme: dark) { :root:root:not(.light):has([data-mode="admin"]) { --brand-tint: #331820; --brand-text: #f6a9b9; } }
+:root:root.dark:has([data-mode="admin"]) { --brand-tint: #331820; --brand-text: #f6a9b9; }

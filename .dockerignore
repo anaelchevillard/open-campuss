@@ -1,0 +1,14 @@
+node_modules
+.next
+.env*
+drizzle-test
+secrets
+.git
+tests
+deploy
+.env.test
+fonts/**/*.otf
+fonts/**/*.ttf
+app.env
+*.env
+data

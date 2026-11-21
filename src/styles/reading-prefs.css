@@ -1,0 +1,46 @@
+/* Réglages de lecture (DESIGN.md §9.4). Les classes viennent de prefClasses (src/lib/prefs.ts). */
+:root {
+  --font-text: "Source Sans 3";
+  --font-read: var(--font-text);
+  --read-size: 1.125rem; --read-leading: 1.7; --read-tracking: normal; --read-word: normal; --read-gap: 0.9em;
+}
+html.read-atkinson { --font-read: "Atkinson Hyperlegible Next"; }
+html.read-serif { --font-read: "Source Serif 4"; }
+html.read-od { --font-read: "OpenDyslexic"; --read-leading: 1.8; }
+/* Toute l'interface : jamais avec OpenDyslexic. Écrit police par police : --font-read vaut --font-text par défaut, un renvoi croisé ferait un cycle */
+html.read-all.read-atkinson { --font-text: "Atkinson Hyperlegible Next"; }
+html.read-all.read-serif { --font-text: "Source Serif 4"; }
+
+/* Zones de lecture : le cours, l'éditeur, les fiches, les quiz */
+:is(.course, .doc-editor .bn-editor, [data-reading]) {
+  font-family: var(--font-read), "Source Sans 3", ui-sans-serif, sans-serif;
+  font-size: var(--read-size); line-height: var(--read-leading);
+  letter-spacing: var(--read-tracking); word-spacing: var(--read-word);
+  overflow-wrap: break-word; hyphens: manual; text-align: start;
+}
+.course > * + * { margin-top: var(--read-gap); }
+
+/* Espacement : « aéré » puis les valeurs de test de WCAG 1.4.12 */
+html.spacing-wide  { --read-tracking: 0.03em; --read-word: 0.08em; --read-leading: 1.85; --read-gap: 1.3em; }
+html.spacing-wider { --read-tracking: 0.12em; --read-word: 0.16em; --read-leading: 2;    --read-gap: 2em; }
+html.read-od.spacing-wider { --read-tracking: 0.06em; }
+/* Interface dans la police de lecture : l'espacement suit, sans l'interligne de lecture */
+html.read-all.spacing-wide body { letter-spacing: 0.02em; word-spacing: 0.06em; }
+html.read-all.spacing-wider body { letter-spacing: 0.05em; word-spacing: 0.1em; }
+
+html.measure-narrow { --measure: 30rem; }
+
+/* Sans italique : l'emphase passe en gras */
+html.no-italic :is(.course, .doc-editor .bn-editor, [data-reading]) :is(em, i, .ann-italic) { font-style: normal; font-weight: 600; }
+
+/* Fond crème, seulement quand on le demande : le blanc de la page reste sinon */
+html.paper-cream { --paper: #fbf6e9; }
+@media (prefers-color-scheme: dark) { html.paper-cream:not(.light) { --paper: #1f1b16; } }
+html.dark.paper-cream { --paper: #1f1b16; }
+/* Le fond crème couvre toute la page d'un cours (lecture ou écriture), pas un cadre autour du texte */
+html.paper-cream:has(:is(.course, .doc-editor)) { --background: var(--paper); }
+
+/* Interface dans une autre police : rien n'est tronqué, tout peut passer à la ligne */
+html.read-all :is([data-slot=sidebar-menu-button], [data-slot=badge], [data-slot=tabs-trigger], [data-slot=button]) { white-space: normal; height: auto; min-height: 2.25rem; }
+html.read-all [data-slot=badge] { min-height: 1.25rem; }
+html.read-all [data-slot=sidebar-menu-button] .truncate { overflow: visible; text-overflow: clip; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
