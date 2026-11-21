@@ -1,9 +1,9 @@
-FROM node:22-alpine AS deps
+FROM node:26-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --ignore-scripts
 
-FROM node:22-alpine AS build
+FROM node:26-alpine AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -14,7 +14,7 @@ RUN npm run build
 RUN rm -rf .next/standalone/node_modules/@img/sharp-linux-* .next/standalone/node_modules/@img/sharp-libvips-linux-* .next/standalone/node_modules/@img/sharp-wasm32 \
   && cd .next/standalone && node -e "console.log('sharp chargé, libvips', require('sharp').versions.vips)"
 
-FROM node:22-alpine AS run
+FROM node:26-alpine AS run
 WORKDIR /app
 # Version affichée dans Admin › Système et datant les erreurs : GIT_SHA=$(git rev-parse --short HEAD)
 # docker compose build. Posée dans la dernière étape seulement : elle ne casse pas le cache du build
